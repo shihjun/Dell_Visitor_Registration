@@ -6,6 +6,7 @@ import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 import com.example.visitorregistration.repositories.RequestRepository;
 import com.example.visitorregistration.repositories.UserRepository;
+import com.example.visitorregistration.responseFormats.RequestDetailsJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,22 @@ public class RequestController {
   @GetMapping(value = "/requests", produces = "application/json")
   public List<Request> displayAllRequest() {
     return requestRepository.findAll();
+  }
+
+  @GetMapping(value = "/request/{id}", produces = "application/json")
+  public RequestDetailsJson displayRequestDetails(@PathVariable long id) {
+
+    RequestDetailsJson json = new RequestDetailsJson();
+    Request request = requestRepository.findById(id).orElse(new Request());
+
+    User primaryContact = request.getPrimaryContact();
+    User alternativeContact = request.getAlternativeContact();
+
+    json.setRequest(request);
+    json.setPrimaryContact(primaryContact);
+    json.setAlternativeContact(alternativeContact);
+
+    return json;
   }
 
   @PostMapping(value = "/user/{userId}/requests")
