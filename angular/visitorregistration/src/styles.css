@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+#logo {
+    width: 40px;
+    height: 40px;
+}
+
+#webtitle {
+    font-size: 18px;
+}
+
+#viewRequest-btn {
+    margin-right: 10%;
+}
+
+#submitRequest-btn {
+    margin-right: 10%;
+}
+
+.main-box {
+    margin-top: 3%;
+}
+
+#line {
+    border-bottom: 1px solid #D7D7D7;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+}
+
+#contact {
+    margin-bottom: 2%;
+}
+
+.onepercentpadding {
+    padding: 1%;
+}
+
+.contact-box {
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

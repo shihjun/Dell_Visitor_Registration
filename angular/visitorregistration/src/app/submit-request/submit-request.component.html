@@ -1,0 +1,129 @@
+<header class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
+    <a class="navbar-brand" href="#">
+      <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+    </a>
+      <span id="webtitle">Dell Visitor Registration</span>
+      <ul class="navbar-nav mr-auto ml-5">
+        <li class="nav-item">
+          <a class="nav-link" href="" style="padding: 0;">Home</a>
+        </li>
+      </ul>
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="viewRequest-btn" routerLink="/user/userId/requests">View Request</button>
+  </nav>
+</header>
+<div class="container">
+<div class="row main-box">
+  <h3>Request</h3>
+</div>
+<div class="row" id="line"></div>
+  <form>
+    <div class="form-group row">
+      <label for="name-input" class="col-sm-2 col-form-label">Visitor's Name :</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="name-input" placeholder="Name">
+      </div>
+      <label for="phone-input" class="col-sm-2 col-form-label">Phone :</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="phone-input" placeholder="Phone Number">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ic-input" class="col-sm-2 col-form-label">IC Number :</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="ic-input" placeholder="IC Number">
+      </div>
+      <label for="carPlate-input" class="col-sm-2 col-form-label">Car Plate :</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="carPlate-input" placeholder="Car Plate Number">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit On :</label>
+      <div class="col-sm-2">
+        <mat-form-field class="datepicker">
+          <input matInput [matDatepicker]="visitOnpicker" placeholder="Choose a date" readonly>
+          <mat-datepicker-toggle matSuffix [for]="visitOnpicker"></mat-datepicker-toggle>
+          <mat-datepicker #visitOnpicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2">
+        <input type="time" class="form-control" name="usr_time">
+      </div>
+      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit To :</label>
+      <div class="col-sm-2">
+        <mat-form-field class="datepicker">
+          <input matInput [matDatepicker]="visitTopicker" placeholder="Choose a date" readonly>
+          <mat-datepicker-toggle matSuffix [for]="visitTopicker"></mat-datepicker-toggle>
+          <mat-datepicker #visitTopicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2">
+        <input type="time" class="form-control" name="usr_time">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <label for="visitReason-input">Reason to visit :</label>
+        <textarea class="form-control" id="visitReason-input" rows="3"></textarea>
+      </div>
+    </div>
+    <h3 id="contact">Contact - Person to escort</h3>
+    <div class="contact-box">
+      <div class="row onepercentpadding">
+        <div class="col-sm-6">
+          <h5 style="margin-bottom: 0;">Primary Contact</h5>
+        </div>
+        <div class="col-sm-6">
+          <h5 style="margin-bottom: 0;">Alternative Contact</h5>
+        </div>
+      </div>
+      <div class="row onepercentpadding">
+        <div class="col-sm-6">
+          <label>Name :</label>
+          <input type="text" class="form-control" id="primaryContact-input" placeholder="Full name">
+        </div>
+        <div class="col-sm-6">
+          <label>Name :</label>
+          <input type="text" class="form-control" id="primaryContact-input" placeholder="Full name">
+        </div>
+      </div>
+      <div class="row onepercentpadding">
+        <div class="col-sm-6">
+          <label>Badge Number :</label>
+          <input type="text" class="form-control" id="primaryBadge-input" placeholder="Badge No.">
+        </div>
+        <div class="col-sm-6">
+          <label>Badge Number :</label>
+          <input type="text" class="form-control" id="primaryBadge-input" placeholder="Badge No.">
+        </div>
+      </div>
+      <div class="row onepercentpadding">
+        <div class="col-sm-6">
+          <label>Department</label>
+          <select class="form-control" id="primaryDepartment-select">
+            <option>IT</option>
+            <option>Sales</option>
+            <option>Finance</option>
+            <option>Marketing</option>
+          </select>
+        </div>
+        <div class="col-sm-6">
+          <label>Department</label>
+          <select class="form-control" id="primaryDepartment-select">
+            <option>IT</option>
+            <option>Sales</option>
+            <option>Finance</option>
+            <option>Marketing</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="line"></div>
+    <div class="form-group row">
+      <div class="col-sm-1 offset-sm-11">
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
