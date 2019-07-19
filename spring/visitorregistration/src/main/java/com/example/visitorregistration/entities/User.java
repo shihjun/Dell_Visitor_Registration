@@ -45,13 +45,15 @@ public class User {
   @Column(name = "isSecurity")
   private boolean isSecurity;
 
-  @JsonManagedReference
+  @JsonManagedReference("createdBy")
   @OneToMany(mappedBy = "createdBy")
   private Set<Request> createdRequests;
 
+  @JsonManagedReference("primaryContact")
   @OneToMany(mappedBy = "primaryContact")
   private Set<Request> primaryContactRequests;
 
+  @JsonManagedReference("alternativeContact")
   @OneToMany(mappedBy = "alternativeContact")
   private Set<Request> alternativeContactRequests;
 
@@ -131,8 +133,6 @@ public class User {
     this.isSecurity = isSecurity;
   }
 
-  // public User getPrimaryContactId() {
-
   public Set<Request> getCreatedRequests() {
     return this.createdRequests;
   }
@@ -156,26 +156,5 @@ public class User {
   public void setAlternativeContactRequests(Set<Request> alternativeContactRequests) {
     this.alternativeContactRequests = alternativeContactRequests;
   }
-  // return this.primaryContactId;
-  // }
 
-  // public void setPrimaryContactId(User primaryContactId) {
-  // this.primaryContactId = primaryContactId;
-  // }
-
-  // public User getAlternativeContactId() {
-  // return this.alternativeContactId;
-  // }
-
-  // public void setAlternativeContactId(User alternativeContactId) {
-  // this.alternativeContactId = alternativeContactId;
-  // }
-
-  // public User getCreatedBy() {
-  // return this.createdBy;
-  // }
-
-  // public void setCreatedBy(User createdBy) {
-  // this.createdBy = createdBy;
-  // }
 }

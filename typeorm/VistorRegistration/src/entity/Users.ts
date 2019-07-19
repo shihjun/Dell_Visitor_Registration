@@ -17,7 +17,7 @@ export class Users {
   department: string;
 
   @Column()
-  phone: string;
+  extension: string;
 
   @Column()
   email: string;
