@@ -7,13 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * User
  */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity(name = "users")
 public class User {
 
@@ -40,32 +46,30 @@ public class User {
   private boolean isSecurity;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "primaryContactId")
-  private Set<Request> primaryContactId;
-
-  @JsonManagedReference
-  @OneToMany(mappedBy = "alternativeContactId")
-  private Set<Request> alternativeContactId;
-
-  @JsonManagedReference
   @OneToMany(mappedBy = "createdBy")
-  private Set<Request> requestCreatedBy;
+  private Set<Request> createdRequests;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "checkinBy")
-  private Set<Registration> checkinBy;
+  @OneToMany(mappedBy = "primaryContact")
+  private Set<Request> primaryContactRequests;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "escortBy")
-  private Set<Registration> escortBy;
+  @OneToMany(mappedBy = "alternativeContact")
+  private Set<Request> alternativeContactRequests;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "createdBy")
-  private Set<Registration> registrationCreatedBy;
+  // @JsonManagedReference
+  // @OneToMany(mappedBy = "checkinBy")
+  // private Set<Registration> checkinBy;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "updatedBy")
-  private Set<Registration> updatedBy;
+  // @JsonManagedReference
+  // @OneToMany(mappedBy = "escortBy")
+  // private Set<Registration> escortBy;
+
+  // @JsonManagedReference
+  // @OneToMany(mappedBy = "createdBy")
+  // private Set<Registration> registrationCreatedBy;
+
+  // @JsonManagedReference
+  // @OneToMany(mappedBy = "updatedBy")
+  // private Set<Registration> updatedBy;
 
   public Long getId() {
     return this.id;
@@ -126,4 +130,52 @@ public class User {
   public void setIsSecurity(boolean isSecurity) {
     this.isSecurity = isSecurity;
   }
+
+  // public User getPrimaryContactId() {
+
+  public Set<Request> getCreatedRequests() {
+    return this.createdRequests;
+  }
+
+  public void setCreatedRequests(Set<Request> createdRequests) {
+    this.createdRequests = createdRequests;
+  }
+
+  public Set<Request> getPrimaryContactRequests() {
+    return this.primaryContactRequests;
+  }
+
+  public void setPrimaryContactRequests(Set<Request> primaryContactRequests) {
+    this.primaryContactRequests = primaryContactRequests;
+  }
+
+  public Set<Request> getAlternativeContactRequests() {
+    return this.alternativeContactRequests;
+  }
+
+  public void setAlternativeContactRequests(Set<Request> alternativeContactRequests) {
+    this.alternativeContactRequests = alternativeContactRequests;
+  }
+  // return this.primaryContactId;
+  // }
+
+  // public void setPrimaryContactId(User primaryContactId) {
+  // this.primaryContactId = primaryContactId;
+  // }
+
+  // public User getAlternativeContactId() {
+  // return this.alternativeContactId;
+  // }
+
+  // public void setAlternativeContactId(User alternativeContactId) {
+  // this.alternativeContactId = alternativeContactId;
+  // }
+
+  // public User getCreatedBy() {
+  // return this.createdBy;
+  // }
+
+  // public void setCreatedBy(User createdBy) {
+  // this.createdBy = createdBy;
+  // }
 }
