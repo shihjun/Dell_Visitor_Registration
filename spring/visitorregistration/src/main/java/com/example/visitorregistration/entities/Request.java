@@ -1,5 +1,7 @@
 package com.example.visitorregistration.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Request
@@ -49,21 +55,19 @@ public class Request {
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "primary_contact_id")
-  private User primaryContactId;
+  @JoinColumn(name = "created_by")
+  private User createdBy;
 
-  @JsonBackReference
+  @ManyToOne
+  @JoinColumn(name = "primary_contact_id")
+  private User primaryContact;
+
   @ManyToOne
   @JoinColumn(name = "alternative_contact_id")
-  private User alternativeContactId;
+  private User alternativeContact;
 
   @Column(name = "created_at")
   private String createdAt;
-
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "created_by")
-  private User createdBy;
 
   @Column(name = "updated_at")
   private String updatedAt;
@@ -148,28 +152,20 @@ public class Request {
     this.status = status;
   }
 
-  public User getPrimaryContactId() {
-    return this.primaryContactId;
-  }
-
-  public void setPrimaryContactId(User primaryContactId) {
-    this.primaryContactId = primaryContactId;
-  }
-
-  public User getAlternativeContactId() {
-    return this.alternativeContactId;
-  }
-
-  public void setAlternativeContactId(User alternativeContactId) {
-    this.alternativeContactId = alternativeContactId;
-  }
-
   public String getCreatedAt() {
     return this.createdAt;
   }
 
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public String getUpdatedAt() {
+    return this.updatedAt;
+  }
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public User getCreatedBy() {
@@ -180,11 +176,20 @@ public class Request {
     this.createdBy = createdBy;
   }
 
-  public String getUpdatedAt() {
-    return this.updatedAt;
+  public User getPrimaryContact() {
+    return this.primaryContact;
   }
 
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setPrimaryContact(User primaryContact) {
+    this.primaryContact = primaryContact;
   }
+
+  public User getAlternativeContact() {
+    return this.alternativeContact;
+  }
+
+  public void setAlternativeContact(User alternativeContact) {
+    this.alternativeContact = alternativeContact;
+  }
+
 }
