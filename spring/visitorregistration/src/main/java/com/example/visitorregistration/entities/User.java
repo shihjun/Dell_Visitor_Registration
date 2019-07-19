@@ -36,8 +36,8 @@ public class User {
   @Column(name = "department")
   private String department;
 
-  @Column(name = "phone")
-  private String phone;
+  @Column(name = "extension")
+  private String extension;
 
   @Column(name = "email")
   private String email;
@@ -105,12 +105,12 @@ public class User {
     this.department = department;
   }
 
-  public String getPhone() {
-    return this.phone;
+  public String getExtension() {
+    return this.extension;
   }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
+  public void setExtension(String extension) {
+    this.extension = extension;
   }
 
   public String getEmail() {

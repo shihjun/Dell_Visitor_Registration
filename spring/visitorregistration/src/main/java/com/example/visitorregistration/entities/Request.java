@@ -53,6 +53,12 @@ public class Request {
   @Column(name = "status")
   private String status;
 
+  @Column(name = "primary_contact_phone")
+  private String primaryContactPhone;
+
+  @Column(name = "alternative_contact_phone")
+  private String alternativeContactPhone;
+
   @JsonBackReference("createdBy")
   @ManyToOne
   @JoinColumn(name = "created_by")
@@ -192,6 +198,22 @@ public class Request {
 
   public void setAlternativeContact(User alternativeContact) {
     this.alternativeContact = alternativeContact;
+  }
+
+  public String getPrimaryContactPhone() {
+    return this.primaryContactPhone;
+  }
+
+  public void setPrimaryContactPhone(String primaryContactPhone) {
+    this.primaryContactPhone = primaryContactPhone;
+  }
+
+  public String getAlternativeContactPhone() {
+    return this.alternativeContactPhone;
+  }
+
+  public void setAlternativeContactPhone(String alternativeContactPhone) {
+    this.alternativeContactPhone = alternativeContactPhone;
   }
 
 }

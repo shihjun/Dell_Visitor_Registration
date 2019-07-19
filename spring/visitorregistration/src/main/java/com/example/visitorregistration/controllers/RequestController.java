@@ -35,15 +35,17 @@ public class RequestController {
   }
 
   @PostMapping(value = "/user/{userId}/requests")
-  public void addRequestForUser(@RequestBody Request request, @PathVariable("userId") long userId,
-      @RequestParam long primarycontactId, @RequestParam(required = false) long alternativeContactId) {
+  public void addRequestForUser(@RequestBody Request request, @PathVariable("userId") Long userId,
+      @RequestParam Long primarycontactId, @RequestParam(required = false) Long alternativeContactId) {
     User createBy = userRepository.findById(userId).orElse(new User());
     User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
-    User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+    if (alternativeContactId != null) {
+      User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+      request.setAlternativeContact(alternativeContact);
+    }
     if (createBy.getId() != null && primaryContact.getId() != null) {
       request.setCreatedBy(createBy);
       request.setPrimaryContact(primaryContact);
-      request.setAlternativeContact(alternativeContact);
       requestRepository.save(request);
     }
 
