@@ -43,7 +43,13 @@ export class Requests {
   primary_contact_id: number;
 
   @Column()
+  primary_contact_phone: string;
+
+  @Column()
   alternative_contact_id: number;
+
+  @Column()
+  alternative_contact_phone: string;
 
   @Column("datetime")
   created_at;

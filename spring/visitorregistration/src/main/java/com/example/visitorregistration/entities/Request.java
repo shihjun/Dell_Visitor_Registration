@@ -53,15 +53,17 @@ public class Request {
   @Column(name = "status")
   private String status;
 
-  @JsonBackReference
+  @JsonBackReference("createdBy")
   @ManyToOne
   @JoinColumn(name = "created_by")
   private User createdBy;
 
+  @JsonBackReference("primaryContact")
   @ManyToOne
   @JoinColumn(name = "primary_contact_id")
   private User primaryContact;
 
+  @JsonBackReference("alternativeContact")
   @ManyToOne
   @JoinColumn(name = "alternative_contact_id")
   private User alternativeContact;
