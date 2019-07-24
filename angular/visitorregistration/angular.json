@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -80,9 +81,16 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/styles.css",
+              "src/app/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css",
+              "src/app/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/app/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js",
+              "src/app/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.uk.js",
+              "src/app/script.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
