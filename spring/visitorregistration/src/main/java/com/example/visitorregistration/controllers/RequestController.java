@@ -6,6 +6,7 @@ import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 import com.example.visitorregistration.repositories.RequestRepository;
 import com.example.visitorregistration.repositories.UserRepository;
+import com.example.visitorregistration.responseFormats.RequestDetailsJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,16 +35,34 @@ public class RequestController {
     return requestRepository.findAll();
   }
 
+  @GetMapping(value = "/request/{id}", produces = "application/json")
+  public RequestDetailsJson displayRequestDetails(@PathVariable long id) {
+
+    RequestDetailsJson json = new RequestDetailsJson();
+    Request request = requestRepository.findById(id).orElse(new Request());
+
+    User primaryContact = request.getPrimaryContact();
+    User alternativeContact = request.getAlternativeContact();
+
+    json.setRequest(request);
+    json.setPrimaryContact(primaryContact);
+    json.setAlternativeContact(alternativeContact);
+
+    return json;
+  }
+
   @PostMapping(value = "/user/{userId}/requests")
-  public void addRequestForUser(@RequestBody Request request, @PathVariable("userId") long userId,
-      @RequestParam long primarycontactId, @RequestParam(required = false) long alternativeContactId) {
+  public void addRequestForUser(@RequestBody Request request, @PathVariable("userId") Long userId,
+      @RequestParam Long primarycontactId, @RequestParam(required = false) Long alternativeContactId) {
     User createBy = userRepository.findById(userId).orElse(new User());
     User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
-    User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+    if (alternativeContactId != null) {
+      User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+      request.setAlternativeContact(alternativeContact);
+    }
     if (createBy.getId() != null && primaryContact.getId() != null) {
       request.setCreatedBy(createBy);
       request.setPrimaryContact(primaryContact);
-      request.setAlternativeContact(alternativeContact);
       requestRepository.save(request);
     }
 
