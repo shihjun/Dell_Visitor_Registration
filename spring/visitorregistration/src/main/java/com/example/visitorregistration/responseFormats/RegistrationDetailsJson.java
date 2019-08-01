@@ -4,37 +4,11 @@ import com.example.visitorregistration.entities.Registration;
 import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 
-public class RequestDetailsJson {
+public class RegistrationDetailsJson {
   Request request;
-  User primaryContact;
-  User alternativeContact;
   Registration registration;
   User checkinBy;
   User escortBy;
-
-  public Request getRequest() {
-    return this.request;
-  }
-
-  public void setRequest(Request request) {
-    this.request = request;
-  }
-
-  public User getPrimaryContact() {
-    return this.primaryContact;
-  }
-
-  public void setPrimaryContact(User primaryContact) {
-    this.primaryContact = primaryContact;
-  }
-
-  public User getAlternativeContact() {
-    return this.alternativeContact;
-  }
-
-  public void setAlternativeContact(User alternativeContact) {
-    this.alternativeContact = alternativeContact;
-  }
 
   public Registration getRegistration() {
     return this.registration;
@@ -42,6 +16,14 @@ public class RequestDetailsJson {
 
   public void setRegistration(Registration registration) {
     this.registration = registration;
+  }
+
+  public Request getRequest() {
+    return this.request;
+  }
+
+  public void setRequest(Request request) {
+    this.request = request;
   }
 
   public User getCheckinBy() {

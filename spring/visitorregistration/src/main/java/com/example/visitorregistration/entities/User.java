@@ -16,7 +16,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 /**
  * User
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "id")
 @Entity(name = "users")
 public class User {
 
@@ -46,29 +47,21 @@ public class User {
   @OneToMany(mappedBy = "createdBy")
   private Set<Request> createdRequests;
 
-  @JsonManagedReference("primaryContact")
-  @OneToMany(mappedBy = "primaryContact")
-  private Set<Request> primaryContactRequests;
+  // @JsonManagedReference("primaryContact")
+  // @OneToMany(mappedBy = "primaryContact")
+  // private Set<Request> primaryContactRequests;
 
-  @JsonManagedReference("alternativeContact")
-  @OneToMany(mappedBy = "alternativeContact")
-  private Set<Request> alternativeContactRequests;
+  // @JsonManagedReference("alternativeContact")
+  // @OneToMany(mappedBy = "alternativeContact")
+  // private Set<Request> alternativeContactRequests;
 
-  // @JsonManagedReference
+  // @JsonManagedReference("checkinBy")
   // @OneToMany(mappedBy = "checkinBy")
-  // private Set<Registration> checkinBy;
+  // private Set<Registration> CheckinByRequests;
 
-  // @JsonManagedReference
+  // @JsonManagedReference("escortBy")
   // @OneToMany(mappedBy = "escortBy")
-  // private Set<Registration> escortBy;
-
-  // @JsonManagedReference
-  // @OneToMany(mappedBy = "createdBy")
-  // private Set<Registration> registrationCreatedBy;
-
-  // @JsonManagedReference
-  // @OneToMany(mappedBy = "updatedBy")
-  // private Set<Registration> updatedBy;
+  // private Set<Registration> EscortByRequests;
 
   public Long getId() {
     return this.id;
@@ -130,28 +123,45 @@ public class User {
     this.isSecurity = isSecurity;
   }
 
-  public Set<Request> getCreatedRequests() {
-    return this.createdRequests;
-  }
+  // public Set<Request> getCreatedRequests() {
+  // return this.createdRequests;
+  // }
 
-  public void setCreatedRequests(Set<Request> createdRequests) {
-    this.createdRequests = createdRequests;
-  }
+  // public void setCreatedRequests(Set<Request> createdRequests) {
+  // this.createdRequests = createdRequests;
+  // }
 
-  public Set<Request> getPrimaryContactRequests() {
-    return this.primaryContactRequests;
-  }
+  // public Set<Request> getPrimaryContactRequests() {
+  // return this.primaryContactRequests;
+  // }
 
-  public void setPrimaryContactRequests(Set<Request> primaryContactRequests) {
-    this.primaryContactRequests = primaryContactRequests;
-  }
+  // public void setPrimaryContactRequests(Set<Request> primaryContactRequests) {
+  // this.primaryContactRequests = primaryContactRequests;
+  // }
 
-  public Set<Request> getAlternativeContactRequests() {
-    return this.alternativeContactRequests;
-  }
+  // public Set<Request> getAlternativeContactRequests() {
+  // return this.alternativeContactRequests;
+  // }
 
-  public void setAlternativeContactRequests(Set<Request> alternativeContactRequests) {
-    this.alternativeContactRequests = alternativeContactRequests;
-  }
+  // public void setAlternativeContactRequests(Set<Request>
+  // alternativeContactRequests) {
+  // this.alternativeContactRequests = alternativeContactRequests;
+  // }
+
+  // public Set<Registration> getCheckinByRequests() {
+  // return this.CheckinByRequests;
+  // }
+
+  // public void setCheckinByRequests(Set<Registration> CheckinByRequests) {
+  // this.CheckinByRequests = CheckinByRequests;
+  // }
+
+  // public Set<Registration> getEscortByRequests() {
+  // return this.EscortByRequests;
+  // }
+
+  // public void setEscortByRequests(Set<Registration> EscortByRequests) {
+  // this.EscortByRequests = EscortByRequests;
+  // }
 
 }
