@@ -97,11 +97,12 @@ public class RequestController {
   }
 
   @PostMapping(value = "/request/{requestId}/cancel")
-  public void cancelRequestForUser(@PathVariable("requestId") Long requestId) {
+  public void cancelRequestForUser(@RequestBody Request request, @PathVariable("requestId") Long requestId) {
     Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
 
     existingRequest.setId(requestId);
     existingRequest.setStatus("Cancelled");
+    existingRequest.setUpdatedAt(request.getUpdatedAt());
     requestRepository.save(existingRequest);
   }
 
