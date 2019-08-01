@@ -47,13 +47,14 @@ public class RegistrationController {
     Request request = requestRepository.findById(requestId).orElse(new Request());
 
     Registration registration = registrationRepository.findByRequest(request);
-    User checkinBy = registration.getCheckinBy();
-    User escortBy = registration.getEscortBy();
+    if (registration != null) {
+      User checkinBy = registration.getCheckinBy();
+      User escortBy = registration.getEscortBy();
+      json.setCheckinBy(checkinBy);
+      json.setEscortBy(escortBy);
+    }
     json.setRegistration(registration);
     json.setRequest(request);
-    json.setCheckinBy(checkinBy);
-    json.setEscortBy(escortBy);
-
     return json;
   }
 

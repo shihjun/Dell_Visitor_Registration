@@ -47,8 +47,8 @@ public class RequestController {
     Request request = requestRepository.findById(id).orElse(new Request());
     User primaryContact = request.getPrimaryContact();
     User alternativeContact = request.getAlternativeContact();
-    Registration registration = registrationRepository.findById(request.getId()).orElse(new Registration());
-    if (registration.getId() != null) {
+    Registration registration = registrationRepository.findByRequest(request);
+    if (registration != null) {
       User checkinBy = registration.getCheckinBy();
       User escortBy = registration.getEscortBy();
       json.setRegistration(registration);
