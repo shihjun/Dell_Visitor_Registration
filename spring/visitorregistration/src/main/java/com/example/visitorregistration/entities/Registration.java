@@ -20,8 +20,10 @@ public class Registration {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "request_id")
-  private Long requestId;
+  @JsonBackReference("request")
+  @ManyToOne
+  @JoinColumn(name = "request_id")
+  private Request request;
 
   @Column(name = "checkin_at")
   private String checkinAt;
@@ -29,12 +31,12 @@ public class Registration {
   @Column(name = "checkout_at")
   private String checkoutAt;
 
-  @JsonBackReference
+  @JsonBackReference("checkinBy")
   @ManyToOne
   @JoinColumn(name = "checkin_by")
   private User checkinBy;
 
-  @JsonBackReference
+  @JsonBackReference("escortBy")
   @ManyToOne
   @JoinColumn(name = "escort_by")
   private User escortBy;
@@ -45,7 +47,7 @@ public class Registration {
   @Column(name = "created_at")
   private String createdAt;
 
-  @JsonBackReference
+  @JsonBackReference("createdBy")
   @ManyToOne
   @JoinColumn(name = "created_by")
   private User createdBy;
@@ -53,7 +55,7 @@ public class Registration {
   @Column(name = "updated_at")
   private String updatedAt;
 
-  @JsonBackReference
+  @JsonBackReference("updatedBy")
   @ManyToOne
   @JoinColumn(name = "updated_by")
   private User updatedBy;
@@ -66,12 +68,12 @@ public class Registration {
     this.id = id;
   }
 
-  public Long getRequestId() {
-    return this.requestId;
+  public Request getRequest() {
+    return this.request;
   }
 
-  public void setRequestId(Long requestId) {
-    this.requestId = requestId;
+  public void setRequest(Request request) {
+    this.request = request;
   }
 
   public String getCheckinAt() {

@@ -2,8 +2,10 @@ package com.example.visitorregistration.controllers;
 
 import java.util.List;
 
+import com.example.visitorregistration.entities.Registration;
 import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
+import com.example.visitorregistration.repositories.RegistrationRepository;
 import com.example.visitorregistration.repositories.RequestRepository;
 import com.example.visitorregistration.repositories.UserRepository;
 import com.example.visitorregistration.responseFormats.RequestDetailsJson;
@@ -30,6 +32,9 @@ public class RequestController {
   @Autowired
   UserRepository userRepository;
 
+  @Autowired
+  RegistrationRepository registrationRepository;
+
   @GetMapping(value = "/requests", produces = "application/json")
   public List<Request> displayAllRequest() {
     return requestRepository.findAll();
@@ -40,10 +45,16 @@ public class RequestController {
 
     RequestDetailsJson json = new RequestDetailsJson();
     Request request = requestRepository.findById(id).orElse(new Request());
-
     User primaryContact = request.getPrimaryContact();
     User alternativeContact = request.getAlternativeContact();
-
+    Registration registration = registrationRepository.findById(request.getId()).orElse(new Registration());
+    if (registration.getId() != null) {
+      User checkinBy = registration.getCheckinBy();
+      User escortBy = registration.getEscortBy();
+      json.setRegistration(registration);
+      json.setCheckinBy(checkinBy);
+      json.setEscortBy(escortBy);
+    }
     json.setRequest(request);
     json.setPrimaryContact(primaryContact);
     json.setAlternativeContact(alternativeContact);
@@ -65,7 +76,33 @@ public class RequestController {
       request.setPrimaryContact(primaryContact);
       requestRepository.save(request);
     }
+  }
 
+  @PostMapping(value = "/request/{requestId}")
+  public void updateRequestForUser(@RequestBody Request request, @PathVariable("requestId") Long requestId,
+      @RequestParam Long primarycontactId, @RequestParam(required = false) Long alternativeContactId,
+      @RequestParam(required = false) String status) {
+    User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
+    Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
+
+    if (alternativeContactId != null) {
+      User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+      request.setAlternativeContact(alternativeContact);
+    }
+    request.setId(requestId);
+    request.setCreatedBy(existingRequest.getCreatedBy());
+    request.setCreatedAt(existingRequest.getCreatedAt());
+    request.setPrimaryContact(primaryContact);
+    requestRepository.save(request);
+  }
+
+  @PostMapping(value = "/request/{requestId}/cancel")
+  public void cancelRequestForUser(@PathVariable("requestId") Long requestId) {
+    Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
+
+    existingRequest.setId(requestId);
+    existingRequest.setStatus("Cancelled");
+    requestRepository.save(existingRequest);
   }
 
 }
