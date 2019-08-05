@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -45,23 +46,8 @@ public class User {
 
   @JsonManagedReference("createdBy")
   @OneToMany(mappedBy = "createdBy")
+  @OrderBy("id")
   private Set<Request> createdRequests;
-
-  // @JsonManagedReference("primaryContact")
-  // @OneToMany(mappedBy = "primaryContact")
-  // private Set<Request> primaryContactRequests;
-
-  // @JsonManagedReference("alternativeContact")
-  // @OneToMany(mappedBy = "alternativeContact")
-  // private Set<Request> alternativeContactRequests;
-
-  // @JsonManagedReference("checkinBy")
-  // @OneToMany(mappedBy = "checkinBy")
-  // private Set<Registration> CheckinByRequests;
-
-  // @JsonManagedReference("escortBy")
-  // @OneToMany(mappedBy = "escortBy")
-  // private Set<Registration> EscortByRequests;
 
   public Long getId() {
     return this.id;
@@ -122,46 +108,5 @@ public class User {
   public void setIsSecurity(boolean isSecurity) {
     this.isSecurity = isSecurity;
   }
-
-  // public Set<Request> getCreatedRequests() {
-  // return this.createdRequests;
-  // }
-
-  // public void setCreatedRequests(Set<Request> createdRequests) {
-  // this.createdRequests = createdRequests;
-  // }
-
-  // public Set<Request> getPrimaryContactRequests() {
-  // return this.primaryContactRequests;
-  // }
-
-  // public void setPrimaryContactRequests(Set<Request> primaryContactRequests) {
-  // this.primaryContactRequests = primaryContactRequests;
-  // }
-
-  // public Set<Request> getAlternativeContactRequests() {
-  // return this.alternativeContactRequests;
-  // }
-
-  // public void setAlternativeContactRequests(Set<Request>
-  // alternativeContactRequests) {
-  // this.alternativeContactRequests = alternativeContactRequests;
-  // }
-
-  // public Set<Registration> getCheckinByRequests() {
-  // return this.CheckinByRequests;
-  // }
-
-  // public void setCheckinByRequests(Set<Registration> CheckinByRequests) {
-  // this.CheckinByRequests = CheckinByRequests;
-  // }
-
-  // public Set<Registration> getEscortByRequests() {
-  // return this.EscortByRequests;
-  // }
-
-  // public void setEscortByRequests(Set<Registration> EscortByRequests) {
-  // this.EscortByRequests = EscortByRequests;
-  // }
 
 }

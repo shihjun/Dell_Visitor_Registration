@@ -24,10 +24,10 @@ export class Requests {
   @Column()
   car_plate: string;
 
-  @Column("datetime")
+  @Column("timestamp")
   visit_from;
 
-  @Column("datetime")
+  @Column("timestamp")
   visit_to;
 
   @Column()
@@ -51,13 +51,13 @@ export class Requests {
   @Column()
   alternative_contact_phone: string;
 
-  @Column("datetime")
+  @Column("timestamp")
   created_at;
 
   @Column()
   created_by: number;
 
-  @Column("datetime")
+  @Column("timestamp")
   updated_at;
 
   @ManyToOne(type => Users, user => user.requestPrimaryContact)
