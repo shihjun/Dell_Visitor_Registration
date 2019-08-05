@@ -42,4 +42,5 @@ node_modules
 npm-debug.log
 yarn-error.log
 ormconfig.json
-application.properties
+spring/visitorregistration/src/main/resources/application-prod.properties
+application-prod.properties

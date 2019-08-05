@@ -80,25 +80,27 @@ public class RegistrationController {
       @PathVariable("registrationId") Long registrationId, @RequestParam Long escortById,
       @RequestParam(required = false) String status) {
     User updatedBy = userRepository.findById(userId).orElse(new User());
-    User checkinBy = userRepository.findById(userId).orElse(new User());
     User escortBy = userRepository.findById(escortById).orElse(new User());
     Registration existingRegistration = registrationRepository.findById(registrationId).orElse(new Registration());
     Request request = requestRepository.findById(existingRegistration.getRequest().getId()).orElse(new Request());
-    if (status != null) {
+    if (existingRegistration.getId() != null) {
+      if (status != null) {
+        registration.setCheckinBy(existingRegistration.getCheckinBy());
+        registration.setEscortBy(existingRegistration.getEscortBy());
+        request.setId(request.getId());
+        request.setStatus(status);
+        requestRepository.save(request);
+      } else {
+        if (escortBy.getId() != null) {
+          registration.setEscortBy(escortBy);
+        }
+      }
+      registration.setId(registrationId);
+      registration.setRequest(existingRegistration.getRequest());
+      registration.setCreatedBy(existingRegistration.getCreatedBy());
       registration.setCheckinBy(existingRegistration.getCheckinBy());
-      registration.setEscortBy(existingRegistration.getEscortBy());
-      request.setId(request.getId());
-      request.setStatus(status);
-      requestRepository.save(request);
-    } else {
-      registration.setCheckinBy(checkinBy);
-      registration.setEscortBy(escortBy);
+      registration.setUpdatedBy(updatedBy);
+      registrationRepository.save(registration);
     }
-    registration.setId(registrationId);
-    registration.setRequest(existingRegistration.getRequest());
-    registration.setCreatedBy(existingRegistration.getCreatedBy());
-    registration.setUpdatedBy(updatedBy);
-    registrationRepository.save(registration);
-
   }
 }

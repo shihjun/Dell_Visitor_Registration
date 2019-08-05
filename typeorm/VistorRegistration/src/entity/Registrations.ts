@@ -17,10 +17,10 @@ export class Registrations {
   @Column()
   request_id: number;
 
-  @Column("datetime")
+  @Column("timestamp")
   checkin_at;
 
-  @Column("datetime")
+  @Column("timestamp")
   checkout_at;
 
   @Column()
@@ -32,13 +32,13 @@ export class Registrations {
   @Column()
   belongings: string;
 
-  @Column("datetime")
+  @Column("timestamp")
   created_at;
 
   @Column()
   created_by: number;
 
-  @Column("datetime")
+  @Column("timestamp")
   updated_at;
 
   @Column()

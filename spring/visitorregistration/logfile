@@ -1,0 +1,2 @@
+2019-08-03 15:55:01.854 +08 [20324] FATAL:  lock file "postmaster.pid" already exists
+2019-08-03 15:55:01.854 +08 [20324] HINT:  Is another postmaster (PID 5964) running in data directory "C:/Users/shih_jun_teh/scoop/apps/postgresql/current/data"?

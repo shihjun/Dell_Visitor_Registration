@@ -21,8 +21,13 @@ public class UserController {
   @Autowired
   UserRepository userRepository;
 
+  @GetMapping(value = "/")
+  public String test() {
+    return "{\"message\": shihjun}";
+  }
+
   @GetMapping(value = "/users", produces = "application/json")
-  public List<User> displayUsers() {
+  public List<User> displayAllUsers() {
     return userRepository.findAll();
   }
 

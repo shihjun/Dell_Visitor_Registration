@@ -36,13 +36,12 @@ public class RequestController {
   RegistrationRepository registrationRepository;
 
   @GetMapping(value = "/requests", produces = "application/json")
-  public List<Request> displayAllRequest() {
+  public List<Request> displayAllRequests() {
     return requestRepository.findAll();
   }
 
   @GetMapping(value = "/request/{id}", produces = "application/json")
   public RequestDetailsJson displayRequestDetails(@PathVariable long id) {
-
     RequestDetailsJson json = new RequestDetailsJson();
     Request request = requestRepository.findById(id).orElse(new Request());
     User primaryContact = request.getPrimaryContact();
@@ -69,7 +68,9 @@ public class RequestController {
     User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
     if (alternativeContactId != null) {
       User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
-      request.setAlternativeContact(alternativeContact);
+      if (alternativeContact.getId() != null) {
+        request.setAlternativeContact(alternativeContact);
+      }
     }
     if (createBy.getId() != null && primaryContact.getId() != null) {
       request.setCreatedBy(createBy);
@@ -84,26 +85,31 @@ public class RequestController {
       @RequestParam(required = false) String status) {
     User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
     Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
-
-    if (alternativeContactId != null) {
-      User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
-      request.setAlternativeContact(alternativeContact);
+    if (existingRequest.getId() != null) {
+      if (primaryContact.getId() != null) {
+        request.setPrimaryContact(primaryContact);
+      }
+      if (alternativeContactId != null) {
+        User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
+        if (alternativeContact.getId() != null) {
+          request.setAlternativeContact(alternativeContact);
+        }
+      }
+      request.setId(requestId);
+      request.setCreatedBy(existingRequest.getCreatedBy());
+      request.setCreatedAt(existingRequest.getCreatedAt());
+      requestRepository.save(request);
     }
-    request.setId(requestId);
-    request.setCreatedBy(existingRequest.getCreatedBy());
-    request.setCreatedAt(existingRequest.getCreatedAt());
-    request.setPrimaryContact(primaryContact);
-    requestRepository.save(request);
   }
 
   @PostMapping(value = "/request/{requestId}/cancel")
   public void cancelRequestForUser(@RequestBody Request request, @PathVariable("requestId") Long requestId) {
     Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
-
-    existingRequest.setId(requestId);
-    existingRequest.setStatus("Cancelled");
-    existingRequest.setUpdatedAt(request.getUpdatedAt());
-    requestRepository.save(existingRequest);
+    if (existingRequest.getId() != null) {
+      existingRequest.setId(requestId);
+      existingRequest.setStatus("Cancelled");
+      existingRequest.setUpdatedAt(request.getUpdatedAt());
+      requestRepository.save(existingRequest);
+    }
   }
-
 }
