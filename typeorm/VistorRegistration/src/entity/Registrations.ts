@@ -20,7 +20,7 @@ export class Registrations {
   @Column("timestamp")
   checkin_at;
 
-  @Column("timestamp")
+  @Column("timestamp", { nullable: true })
   checkout_at;
 
   @Column()
@@ -29,7 +29,7 @@ export class Registrations {
   @Column()
   escort_by: number;
 
-  @Column()
+  @Column({ nullable: true })
   belongings: string;
 
   @Column("timestamp")

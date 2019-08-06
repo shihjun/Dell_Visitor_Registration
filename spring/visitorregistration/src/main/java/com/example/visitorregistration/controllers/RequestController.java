@@ -11,6 +11,7 @@ import com.example.visitorregistration.repositories.UserRepository;
 import com.example.visitorregistration.responseFormats.RequestDetailsJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,13 @@ public class RequestController {
 
   @GetMapping(value = "/requests", produces = "application/json")
   public List<Request> displayAllRequests() {
-    return requestRepository.findAll();
+    return requestRepository.findAll(Sort.by("id"));
+  }
+
+  @GetMapping(value = "/user/{userId}/requests", produces = "application/json")
+  public List<Request> displayUserRequests(@PathVariable("userId") Long userId) {
+    User createdBy = userRepository.findById(userId).orElse(new User());
+    return requestRepository.findAllByCreatedBy(createdBy);
   }
 
   @GetMapping(value = "/request/{id}", produces = "application/json")
@@ -63,9 +70,9 @@ public class RequestController {
 
   @PostMapping(value = "/user/{userId}/requests")
   public void addRequestForUser(@RequestBody Request request, @PathVariable("userId") Long userId,
-      @RequestParam Long primarycontactId, @RequestParam(required = false) Long alternativeContactId) {
+      @RequestParam Long primaryContactId, @RequestParam(required = false) Long alternativeContactId) {
     User createBy = userRepository.findById(userId).orElse(new User());
-    User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
+    User primaryContact = userRepository.findById(primaryContactId).orElse(new User());
     if (alternativeContactId != null) {
       User alternativeContact = userRepository.findById(alternativeContactId).orElse(new User());
       if (alternativeContact.getId() != null) {
@@ -81,9 +88,8 @@ public class RequestController {
 
   @PostMapping(value = "/request/{requestId}")
   public void updateRequestForUser(@RequestBody Request request, @PathVariable("requestId") Long requestId,
-      @RequestParam Long primarycontactId, @RequestParam(required = false) Long alternativeContactId,
-      @RequestParam(required = false) String status) {
-    User primaryContact = userRepository.findById(primarycontactId).orElse(new User());
+      @RequestParam Long primaryContactId, @RequestParam(required = false) Long alternativeContactId) {
+    User primaryContact = userRepository.findById(primaryContactId).orElse(new User());
     Request existingRequest = requestRepository.findById(requestId).orElse(new Request());
     if (existingRequest.getId() != null) {
       if (primaryContact.getId() != null) {

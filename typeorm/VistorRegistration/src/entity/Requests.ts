@@ -21,7 +21,7 @@ export class Requests {
   @Column()
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   car_plate: string;
 
   @Column("timestamp")
@@ -34,9 +34,6 @@ export class Requests {
   purpose: string;
 
   @Column()
-  department: string;
-
-  @Column()
   status: string;
 
   @Column()
@@ -45,10 +42,10 @@ export class Requests {
   @Column()
   primary_contact_phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   alternative_contact_id: number;
 
-  @Column()
+  @Column({ nullable: true })
   alternative_contact_phone: string;
 
   @Column("timestamp")

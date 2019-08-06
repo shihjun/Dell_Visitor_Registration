@@ -62,17 +62,21 @@ public class RegistrationController {
   public void checkInForRegistration(@RequestBody Registration registration, @PathVariable("userId") Long userId,
       @PathVariable("requestId") Long requestId, @RequestParam Long escortById) {
     User createdBy = userRepository.findById(userId).orElse(new User());
+    User updatedBy = userRepository.findById(userId).orElse(new User());
     User checkinBy = userRepository.findById(userId).orElse(new User());
     User escortBy = userRepository.findById(escortById).orElse(new User());
     Request request = requestRepository.findById(requestId).orElse(new Request());
-    registration.setRequest(request);
-    registration.setCreatedBy(createdBy);
-    registration.setCheckinBy(checkinBy);
-    registration.setEscortBy(escortBy);
-    registrationRepository.save(registration);
-    request.setId(requestId);
-    request.setStatus("Visiting");
-    requestRepository.save(request);
+    if (request.getId() != null && escortBy.getId() != null) {
+      registration.setRequest(request);
+      registration.setCreatedBy(createdBy);
+      registration.setUpdatedBy(updatedBy);
+      registration.setCheckinBy(checkinBy);
+      registration.setEscortBy(escortBy);
+      registrationRepository.save(registration);
+      request.setId(requestId);
+      request.setStatus("Visiting");
+      requestRepository.save(request);
+    }
   }
 
   @PostMapping(value = "/user/{userId}/registration/{registrationId}")
@@ -80,13 +84,16 @@ public class RegistrationController {
       @PathVariable("registrationId") Long registrationId, @RequestParam Long escortById,
       @RequestParam(required = false) String status) {
     User updatedBy = userRepository.findById(userId).orElse(new User());
+    User checkinBy = userRepository.findById(userId).orElse(new User());
     User escortBy = userRepository.findById(escortById).orElse(new User());
     Registration existingRegistration = registrationRepository.findById(registrationId).orElse(new Registration());
     Request request = requestRepository.findById(existingRegistration.getRequest().getId()).orElse(new Request());
     if (existingRegistration.getId() != null) {
       if (status != null) {
+        registration.setCheckinAt(existingRegistration.getCheckinAt());
         registration.setCheckinBy(existingRegistration.getCheckinBy());
         registration.setEscortBy(existingRegistration.getEscortBy());
+        registration.setBelongings(existingRegistration.getBelongings());
         request.setId(request.getId());
         request.setStatus(status);
         requestRepository.save(request);
@@ -94,11 +101,12 @@ public class RegistrationController {
         if (escortBy.getId() != null) {
           registration.setEscortBy(escortBy);
         }
+        registration.setCheckinBy(checkinBy);
       }
-      registration.setId(registrationId);
       registration.setRequest(existingRegistration.getRequest());
+      registration.setCreatedAt(existingRegistration.getCreatedAt());
       registration.setCreatedBy(existingRegistration.getCreatedBy());
-      registration.setCheckinBy(existingRegistration.getCheckinBy());
+      registration.setId(registrationId);
       registration.setUpdatedBy(updatedBy);
       registrationRepository.save(registration);
     }

@@ -23,7 +23,7 @@ export class Users {
   email: string;
 
   @Column()
-  isSecurity: boolean;
+  is_security: boolean;
 
   @OneToMany(type => Requests, request => request.primaryContactId)
   requestPrimaryContact: Requests[];
