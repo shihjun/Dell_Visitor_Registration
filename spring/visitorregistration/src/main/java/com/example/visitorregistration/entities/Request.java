@@ -1,5 +1,7 @@
 package com.example.visitorregistration.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,16 +35,13 @@ public class Request {
   private String carPlate;
 
   @Column(name = "visit_from")
-  private String visitFrom;
+  private Timestamp visitFrom;
 
   @Column(name = "visit_to")
-  private String visitTo;
+  private Timestamp visitTo;
 
   @Column(name = "purpose")
   private String purpose;
-
-  @Column(name = "department")
-  private String department;
 
   @Column(name = "status")
   private String status;
@@ -69,10 +68,10 @@ public class Request {
   private User alternativeContact;
 
   @Column(name = "created_at")
-  private String createdAt;
+  private Timestamp createdAt;
 
   @Column(name = "updated_at")
-  private String updatedAt;
+  private Timestamp updatedAt;
 
   public Long getId() {
     return this.id;
@@ -114,19 +113,19 @@ public class Request {
     this.carPlate = carPlate;
   }
 
-  public String getVisitFrom() {
+  public Timestamp getVisitFrom() {
     return this.visitFrom;
   }
 
-  public void setVisitFrom(String visitFrom) {
+  public void setVisitFrom(Timestamp visitFrom) {
     this.visitFrom = visitFrom;
   }
 
-  public String getVisitTo() {
+  public Timestamp getVisitTo() {
     return this.visitTo;
   }
 
-  public void setVisitTo(String visitTo) {
+  public void setVisitTo(Timestamp visitTo) {
     this.visitTo = visitTo;
   }
 
@@ -138,14 +137,6 @@ public class Request {
     this.purpose = purpose;
   }
 
-  public String getDepartment() {
-    return this.department;
-  }
-
-  public void setDepartment(String department) {
-    this.department = department;
-  }
-
   public String getStatus() {
     return this.status;
   }
@@ -154,19 +145,19 @@ public class Request {
     this.status = status;
   }
 
-  public String getCreatedAt() {
+  public Timestamp getCreatedAt() {
     return this.createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(Timestamp createdAt) {
     this.createdAt = createdAt;
   }
 
-  public String getUpdatedAt() {
+  public Timestamp getUpdatedAt() {
     return this.updatedAt;
   }
 
-  public void setUpdatedAt(String updatedAt) {
+  public void setUpdatedAt(Timestamp updatedAt) {
     this.updatedAt = updatedAt;
   }
 

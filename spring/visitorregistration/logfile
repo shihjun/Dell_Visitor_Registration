@@ -1,2 +1,10 @@
 2019-08-03 15:55:01.854 +08 [20324] FATAL:  lock file "postmaster.pid" already exists
 2019-08-03 15:55:01.854 +08 [20324] HINT:  Is another postmaster (PID 5964) running in data directory "C:/Users/shih_jun_teh/scoop/apps/postgresql/current/data"?
+2019-08-05 15:30:26.281 +08 [14800] LOG:  listening on IPv6 address "::1", port 5432
+2019-08-05 15:30:26.282 +08 [14800] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-08-05 15:30:27.110 +08 [2604] LOG:  database system was shut down at 2019-08-05 13:04:35 +08
+2019-08-05 15:30:27.449 +08 [14800] LOG:  database system is ready to accept connections
+2019-08-05 16:36:12.600 +08 [14864] FATAL:  role "urlyckwy" does not exist
+2019-08-05 16:39:49.759 +08 [11748] FATAL:  role "urlyckwy" does not exist
+2019-08-06 07:25:03.569 +08 [12360] WARNING:  worker took too long to start; canceled
+2019-08-06 07:25:19.992 +08 [21232] WARNING:  autovacuum worker started without a worker entry

@@ -41,13 +41,13 @@ public class User {
   @Column(name = "email")
   private String email;
 
-  @Column(name = "isSecurity")
+  @Column(name = "is_security")
   private boolean isSecurity;
 
-  @JsonManagedReference("createdBy")
-  @OneToMany(mappedBy = "createdBy")
-  @OrderBy("id")
-  private Set<Request> createdRequests;
+  // @JsonManagedReference("createdBy")
+  // @OneToMany(mappedBy = "createdBy")
+  // @OrderBy("id")
+  // private Set<Request> createdRequests;
 
   public Long getId() {
     return this.id;
