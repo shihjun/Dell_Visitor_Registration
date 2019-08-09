@@ -38,13 +38,15 @@ public class RequestController {
 
   @GetMapping(value = "/requests", produces = "application/json")
   public List<Request> displayAllRequests() {
-    return requestRepository.findAll(Sort.by(Sort.Order.desc("status"), Sort.Order.desc("id")));
+    return requestRepository
+        .findAll(Sort.by(Sort.Order.desc("status"), Sort.Order.desc("visitFrom"), Sort.Order.desc("id")));
   }
 
   @GetMapping(value = "/user/{userId}/requests", produces = "application/json")
   public List<Request> displayUserRequests(@PathVariable("userId") Long userId) {
     User createdBy = userRepository.findById(userId).orElse(new User());
-    return requestRepository.findAllByCreatedBy(createdBy, Sort.by(Sort.Order.desc("status"), Sort.Order.desc("id")));
+    return requestRepository.findAllByCreatedBy(createdBy,
+        Sort.by(Sort.Order.desc("status"), Sort.Order.desc("visitFrom"), Sort.Order.desc("id")));
   }
 
   @GetMapping(value = "/request/{id}", produces = "application/json")
