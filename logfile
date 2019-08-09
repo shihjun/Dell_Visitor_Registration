@@ -1,0 +1,35 @@
+2019-08-09 00:08:28.773 +08 [16828] LOG:  listening on IPv6 address "::1", port 5432
+2019-08-09 00:08:28.773 +08 [16828] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-08-09 00:08:30.070 +08 [25536] LOG:  database system was interrupted; last known up at 2019-08-06 12:47:16 +08
+2019-08-09 00:09:03.164 +08 [25536] LOG:  database system was not properly shut down; automatic recovery in progress
+2019-08-09 00:09:03.178 +08 [25536] LOG:  redo starts at 0/16C3668
+2019-08-09 00:09:03.179 +08 [25536] LOG:  invalid record length at 0/16C36A0: wanted 24, got 0
+2019-08-09 00:09:03.179 +08 [25536] LOG:  redo done at 0/16C3668
+2019-08-09 00:09:03.397 +08 [16828] LOG:  database system is ready to accept connections
+2019-08-09 00:09:57.588 +08 [8380] ERROR:  database "visitor_registration" already exists
+2019-08-09 00:09:57.588 +08 [8380] STATEMENT:  CREATE DATABASE visitor_registration
+2019-08-09 00:17:45.516 +08 [20800] ERROR:  relation "users" already exists
+2019-08-09 00:17:45.516 +08 [20800] STATEMENT:  CREATE TABLE "users" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, "badge_id" character varying NOT NULL, "department" character varying NOT NULL, "extension" character varying NOT NULL, "email" character varying NOT NULL, "is_security" boolean NOT NULL, CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))
+2019-08-09 00:19:12.033 +08 [26372] ERROR:  relation "users" already exists
+2019-08-09 00:19:12.033 +08 [26372] STATEMENT:  CREATE TABLE "users" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, "badge_id" character varying NOT NULL, "department" character varying NOT NULL, "extension" character varying NOT NULL, "email" character varying NOT NULL, "is_security" boolean NOT NULL, CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))
+2019-08-09 00:24:02.186 +08 [16560] FATAL:  role "Shih_Jun_Teh" does not exist
+2019-08-09 00:41:45.657 +08 [20740] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.658 +08 [12572] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.660 +08 [4572] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.674 +08 [19512] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.702 +08 [22224] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.728 +08 [11628] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.729 +08 [25372] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.743 +08 [13872] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.744 +08 [17844] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2019-08-09 00:41:45.767 +08 [24160] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	

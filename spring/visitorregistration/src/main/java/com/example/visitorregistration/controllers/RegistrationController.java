@@ -11,6 +11,7 @@ import com.example.visitorregistration.repositories.UserRepository;
 import com.example.visitorregistration.responseFormats.RegistrationDetailsJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class RegistrationController {
 
   @GetMapping(value = "/registrations", produces = "application/json")
   public List<Registration> displayAllRegistrations() {
-    return registrationRepository.findAll();
+    return registrationRepository.findAll(Sort.by(Sort.Order.desc("checkinAt"), Sort.Order.desc("id")));
   }
 
   @GetMapping(value = "request/{requestId}/registration", produces = "application/json")
