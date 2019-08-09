@@ -1,15 +1,13 @@
 <header class="bg-light">
   <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
     </a>
+    <a href="/" style="text-decoration: none;">
       <span id="webtitle">Dell Visitor Registration</span>
-      <ul class="navbar-nav mr-auto ml-5">
-        <li class="nav-item">
-          <a class="nav-link" href="" style="padding: 0;">Home</a>
-        </li>
-      </ul>
-    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="viewRequest-btn" routerLink="/user/userId/requests">View Request</button>
+    </a>
+      <ul class="navbar-nav mr-auto ml-5"></ul>
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="viewRequest-btn" routerLink="/user/{{ userId }}/requests">View Request</button>
   </nav>
 </header>
 <div class="container">
@@ -72,43 +70,31 @@
     <div class="contact-box">
       <div class="row onepercentpadding">
         <div class="col-sm-6">
-          <h5 style="margin-bottom: 0;">Primary Contact</h5>
-        </div>
-        <div class="col-sm-6">
-          <h5 style="margin-bottom: 0;">Alternative Contact</h5>
-        </div>
-      </div>
-      <div class="row onepercentpadding">
-        <div class="col-sm-6">
-          <label>Name :</label>
-          <input type="text" class="form-control" id="primaryContact-input" formControlName="primaryCN" placeholder="Full name">
-        </div>
-        <div class="col-sm-6">
-          <label>Name :</label>
-          <input type="text" class="form-control" id="alternativeContact-input" formControlName="alternativeCN" placeholder="Full name">
-        </div>
-      </div>
-      <div class="row onepercentpadding">
-        <div class="col-sm-6">
-          <label>Badge Number :</label>
-          <input type="text" class="form-control" id="primaryBadge-input" formControlName="primaryBadge" placeholder="Badge No.">
-        </div>
-        <div class="col-sm-6">
-          <label>Badge Number :</label>
-          <input type="text" class="form-control" id="alternativeBadge-input" formControlName="alternativeBadge" placeholder="Badge No.">
-        </div>
-      </div>
-      <div class="row onepercentpadding">
-        <div class="col-sm-6">
-          <label>Phone Numer :</label>
+          <h5>Primary Contact</h5>
+          <label class="setMargin">&nbsp;Name :</label>
+          <input type="text" class="form-control" id="primaryContact-input" [matAutocomplete]="auto" formControlName="primaryCN" placeholder="Full name">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let name of allNames" [value]="name">{{ name }}</mat-option>
+          </mat-autocomplete>
+          <label class="setMargin">&nbsp;Phone Number :</label>
           <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number">
         </div>
         <div class="col-sm-6">
-          <label>Phone Number :</label>
+          <h5>Alternative Contact</h5>
+          <label class="setMargin">&nbsp;Name :</label>
+          <input type="text" class="form-control" id="alternativeContact-input"  [matAutocomplete]="auto2" formControlName="alternativeCN" placeholder="Full name">
+          <mat-autocomplete #auto2="matAutocomplete">
+            <mat-option *ngFor="let name of allNames" [value]="name">{{ name }}</mat-option>
+          </mat-autocomplete>
+          <label class="setMargin">&nbsp;Phone Number :</label>
           <input type="text" class="form-control" formControlName="alternativePhone" placeholder="Phone Number">
         </div>
       </div>
     </div>
+    <div *ngIf="isSubmitted == false" class="alert alert-danger" role="alert">
+      Please fill in all the required fields.
+    </div>
+    
     <div class="row" id="line"></div>
     <div class="form-group row">
       <div class="col-sm-1 offset-sm-11">

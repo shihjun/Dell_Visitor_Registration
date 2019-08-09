@@ -1,21 +1,25 @@
 <header class="bg-light">
   <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
     </a>
+    <a href="/" style="text-decoration: none;">
       <span id="webtitle">Dell Visitor Registration</span>
-      <ul class="navbar-nav mr-auto ml-5">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" style="padding: 0;">Home</a>
-        </li>
-      </ul>
-    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" routerLink="/user/userId/requests" style="margin-right: 1%;">View Request</button>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/" id="submitRequest-btn">Submit Request</button>
+    </a>
+      <ul class="navbar-nav mr-auto ml-5"></ul>
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="button" routerLink="/user/{{ userId }}/requests" style="margin-right: 1%;">View Request</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button" routerLink="/user/{{ userId }}/submitrequest" id="submitRequest-btn">Submit Request</button>
   </nav>
 </header>
 <div class="container">
   <div class="row main-box">
-    <h3>Request Details</h3>
+    <div class="col-sm-9">
+      <h3>Request Details - {{ requestInfo.request.id }}</h3>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-outline-primary" routerLink="/user/{{ userId }}/request/{{ requestInfo.request.id }}/edit" id="editbtn-request">Edit</button>
+      <button (click)="cancelUserRequest()" type="submit" class="btn btn-outline-danger">Cancel Request</button>
+    </div>
   </div>
   <div class="row" id="line"></div>
   <div class="row">
@@ -25,23 +29,25 @@
           <label class="details-font">Visitor's Name :</label>
         </div>
         <div class="col-sm-6">
-          <label class="details-font">Dastan</label>
+          <label class="details-font">{{ requestInfo.request.name }}</label>
         </div>
       </div>
+      <div class="row">
+          <div class="col-sm-6">
+            <label class="details-font">Status :</label>
+          </div>
+          <div class="col-sm-6">
+            <label class="details-font">{{ requestInfo.request.status }}</label>
+          </div>
+        </div>
+      <div class="subsection-line"></div>
+      <h4 class="details-title">Personal Information</h4>
       <div class="row">
         <div class="col-sm-6">
           <label class="details-font">Phone :</label>
         </div>
         <div class="col-sm-6">
-          <label class="details-font">0124868862</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <label class="details-font">Status :</label>
-        </div>
-        <div class="col-sm-6">
-          <label class="details-font">Pending to visit</label>
+          <label class="details-font">{{ requestInfo.request.phone }}</label>
         </div>
       </div>
       <div class="row">
@@ -49,7 +55,7 @@
           <label class="details-font">IC Number :</label>
         </div>
         <div class="col-sm-6">
-          <label class="details-font">123456011234</label>
+          <label class="details-font">{{ requestInfo.request.ic }}</label>
         </div>
       </div>
       <div class="row">
@@ -57,37 +63,144 @@
           <label class="details-font">Car Plate :</label>
         </div>
         <div class="col-sm-6">
-          <label class="details-font">PJA1234</label>
+          <label class="details-font">{{ requestInfo.request.carPlate }}</label>
         </div>
       </div>
+      <div class="subsection-line"></div>
+      <h4 class="details-title">Date & Purpose</h4>
       <div class="row">
         <div class="col-sm-6">
-          <label class="details-font">Visit On :</label>
+          <label class="details-font">Visit From :</label>
+          <div class="small-line"></div>
         </div>
-        <div class="col-sm-6">
-          <label class="details-font">7/19/2019 9:00 AM</label>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-sm-6">
           <label class="details-font">Visit To :</label>
-        </div>
-        <div class="col-sm-6">
-          <label class="details-font">7/20/2019 19:00 PM</label>
+          <div class="small-line"></div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6">
+          <label class="details-font">{{ visitFromDate }}</label>
+        </div>
+        <div class="col-sm-6">
+          <label class="details-font">{{ visitToDate }}</label>
+        </div>
+      </div>
+      <div class="row" id="reason-box">
+        <div class="col-sm-12">
           <label class="details-font">Reason To Visit :</label>
         </div>
-        <div class="col-sm-6 visitReason-text">
-          <p>jhdwuqheohwoeuhqoweoiqweoiqwueoiquwroiuqwoiruqoiwuroiwquroihgsjdnjksdnkj</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <p>{{ requestInfo.request.purpose }}</p>
         </div>
       </div>
     </div>
-
-    <div class="col-sm-6">
-
+    <div class="col-sm-4 offset-sm-1">
+      <div class="contact-box">
+        <h5>Primary Contact</h5>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Name :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.primaryContact.name }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Badge :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.primaryContact.badgeId }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Email :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.primaryContact.email }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Department :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.primaryContact.department }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Extension :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.primaryContact.extension }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Phone :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.request.primaryContactPhone }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="contact-box" *ngIf="requestInfo.alternativeContact != null">
+        <h5>Alternative Contact</h5>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Name :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.alternativeContact.name }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Badge :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.alternativeContact.badgeId }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Email :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.alternativeContact.email }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Department :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.alternativeContact.department }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Extension :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.alternativeContact.extension }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>Phone :</label>
+          </div>
+          <div class="col-sm-8">
+            <label>{{ requestInfo.request.alternativeContactPhone }}</label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="row" id="line"></div>
 </div>

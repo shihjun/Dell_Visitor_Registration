@@ -1,69 +1,131 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequestService } from '../request.service';
+import { Router, ActivatedRoute } from "@angular/router";
+import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../user.service';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-submit-request',
   templateUrl: './submit-request.component.html',
   styleUrls: ['./submit-request.component.css']
 })
+
 export class SubmitRequestComponent implements OnInit {
+  users: any
+  allNames: string[]
+  isSubmitted = null
+  pContactId = null
+  aContactId = null
+  userId = null
 
   requestForm = new FormGroup({
-    visitorName: new FormControl(""),
-    phoneNumber: new FormControl(""),
-    icNumber: new FormControl(""),
+    visitorName: new FormControl("", [Validators.required]),
+    phoneNumber: new FormControl("", [Validators.required]),
+    icNumber: new FormControl("", [Validators.required]),
     carplateNumber: new FormControl(""),
-    visitOnDate: new FormControl(""),
-    visitOnTime: new FormControl(""),
-    visitToDate: new FormControl(""),
-    visitToTime: new FormControl(""),
-    visitReason: new FormControl(""),
-    primaryCN: new FormControl(""),
+    visitOnDate: new FormControl("", [Validators.required]),
+    visitOnTime: new FormControl("", [Validators.required]),
+    visitToDate: new FormControl("", [Validators.required]),
+    visitToTime: new FormControl("", [Validators.required]),
+    visitReason: new FormControl("", [Validators.required]),
+    primaryCN: new FormControl("", [Validators.required]),
     alternativeCN: new FormControl(""),
-    primaryBadge: new FormControl(""),
-    alternativeBadge: new FormControl(""),
-    primaryPhone: new FormControl(""),
+    primaryPhone: new FormControl("", [Validators.required]),
     alternativePhone: new FormControl("")
   });
 
-  constructor(private requestService: RequestService) { }
-    users: any;
-
+  constructor(private requestService: RequestService, private userService: UserService, private router: Router, 
+              private route: ActivatedRoute, public dialog: MatDialog) { }
+  
   ngOnInit() {
-    
+    this.userService.getUsers().subscribe(response => {
+      this.users = response
+    })
+    this.userId = this.route.snapshot.params.userId
+    this.getAllUsers()
+  }
+
+  getAllUsers() {
+    var names = []
+    this.userService.getUsers().subscribe(response => {
+      this.users = response
+      for(let i = 0; i < this.users.length; i++) {
+        if(this.users[i].isSecurity == false) {
+          names.push(this.users[i].name)
+        }
+      }
+      console.log(names)
+      this.allNames = names
+      console.log(this.allNames)
+    })
+  }
+
+  getContactId(userArray) {
+    for(let i = 0; i < userArray.length; i++) {
+      if(userArray[i].name == this.requestForm.controls.primaryCN.value) {
+        this.pContactId = userArray[i].id
+        console.log("Primary Contact Id : " + this.pContactId)
+      }
+      if(userArray[i].name == this.requestForm.controls.alternativeCN.value) {
+        this.aContactId = userArray[i].id
+        console.log("Alternative Contact : " + this.aContactId)
+      } else {
+        this.aContactId = ""
+        console.log("Alternative Contact : " + this.aContactId)
+      }
+    }
+  }
+
+  openDialog() {
+    this.dialog.open(SubmitRequestSuccessAlert);
   }
 
   onSubmit() {
     const { visitOnDate, visitOnTime, visitToDate, visitToTime } = this.requestForm.value
+    var currentDate = new Date();
+    var visitFrom = visitOnDate.toString()
+    var visitTo = visitToDate.toString()
 
-    // const visitFrom = visitOnDate.toDateString() + " " + visitOnTime
-    // const visitTo = visitToDate.toDateString() + " " + visitToTime
+    visitFrom = visitFrom.replace("00:00", visitOnTime)
+    visitTo = visitTo.replace("00:00", visitToTime)
 
-    this.requestService.getUser().subscribe(response => {
-      this.users = response
-      console.log(this.users)
-    })
+    visitFrom = new Date(visitFrom).toISOString()
+    visitTo = new Date(visitTo).toISOString()
 
     const data = {
       name: this.requestForm.value.visitorName,
       ic: this.requestForm.value.icNumber,
       phone: this.requestForm.value.phoneNumber,
       carPlate: this.requestForm.value.carplateNumber,
-      visitFrom: "7/19/2019 04:30:00.0",
-      visitTo: "7/19/2019 04:30:00.0",
+      visitFrom: visitFrom,
+      visitTo: visitTo,
       purpose: this.requestForm.value.visitReason,
-      department: "IT",
       status: "New",
       primaryContactPhone: this.requestForm.value.primaryPhone,
       alternativeContactPhone: this.requestForm.value.alternativePhone,
-      createdAt: "7/19/2019 04:30:00.0",
-      updatedAt: "7/19/2019 04:30:00.0"
+      createdAt: currentDate,
+      updatedAt: currentDate
     }
 
     if(!this.requestForm.invalid) {
       console.log(data)
-      this.requestService.createRequest(data)
+      this.getContactId(this.users)
+    
+      this.requestService.createRequest(data, this.pContactId, this.aContactId, this.userId).subscribe(response => {
+        this.isSubmitted = true
+        this.openDialog()
+        this.router.navigate(["/user/" + this.userId + "/requests"])
+      })
+    } else {
+      this.isSubmitted = false
     }
   }
 }
+
+@Component({
+  selector: 'submit-request-success-alert',
+  templateUrl: './submit-request-success-alert.html'
+})
+export class SubmitRequestSuccessAlert {}

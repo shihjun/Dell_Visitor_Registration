@@ -2,7 +2,52 @@
     font-size: 20px;
 }
 
+#editbtn-request {
+    margin-right: 7%;
+}
+
 .visitReason-text {
     font-size: 20px;
     word-break: break-all;
+}
+
+.details-title {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+#alternativecontact-box {
+    margin-top: 3%;
+}
+
+.subsection-line {
+    margin-top: 5%;
+    color: #236fbd;
+    background-color: #236fbd;
+    height: 3.5px;
+}
+
+.contact-box {
+    position: relative;
+	width: 400px;
+	height: 240px;
+	transform-style: preserve-3d;
+	transform: rotatey(0deg) translatex(0px) translatey(0px);
+	transition: all 0.6s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+	box-shadow: 4px 4px 20px rgba(0,0,0,0.4);
+    padding: 3%;
+    margin-bottom: 8%;
+}
+
+#reason-box {
+    margin-top: 3%;
+}
+
+.small-line {
+    border: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, #969592, #bababa, rgba(0, 0, 0, 0));
+    margin: 1%;
+    margin-left: 0;
+    margin-right: 0;
 }
