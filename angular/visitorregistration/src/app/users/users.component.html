@@ -1,0 +1,24 @@
+<header class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
+    <a class="navbar-brand" href="/">
+      <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+    </a>
+    <a href="/" style="text-decoration: none;">
+      <span id="webtitle">Dell Visitor Registration</span>
+    </a>
+      <ul class="navbar-nav mr-auto ml-5"></ul>
+  </nav>
+</header>
+<div class="container" style="max-width: 1300px">
+  <div class="d-flex justify-content-between flex-wrap" style="margin-top: 5%;">
+    <div class="card border-secondary mb-3" *ngFor="let user of allUsers" routerLink="/user/{{ user.id }}/requests" style="width: 18rem; cursor: pointer;">
+      <div class="card-header">{{ user.role }}</div>
+      <div class="card-body text-secondary">
+        <h5 class="card-title">Name : {{ user.name }}</h5>
+        <p class="card-text">Badge ID : {{ user.badgeId }}</p>
+        <p class="card-text">Email : {{ user.email }}</p>
+        <p class="card-text">Department : {{ user.department }}</p>
+      </div>
+    </div>
+  </div>
+</div>
