@@ -60,7 +60,8 @@ export class EditRequestComponent implements OnInit {
       if(this.requestForm.controls.alternativeCN.value != null && userArray[i].name == this.requestForm.controls.alternativeCN.value) {
         this.aContactId = userArray[i].id
         console.log("Alternative Contact : " + this.aContactId)
-      } else {
+      } 
+      if(this.requestForm.controls.alternativeCN.value == null) {
         this.aContactId = ""
       }
     }
