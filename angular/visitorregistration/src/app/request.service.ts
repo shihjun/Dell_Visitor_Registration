@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 const baseUrl = "https://dellvisitorregistration.cfapps.io/api";
-const allRequestsUrl = `${baseUrl}/requests`
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +10,7 @@ const allRequestsUrl = `${baseUrl}/requests`
 export class RequestService {
   private allRequests: BehaviorSubject<any[]> = new BehaviorSubject([])
 
-  constructor(private http: HttpClient) { 
-    this.http.get(allRequestsUrl).subscribe((requests: any[]) => {
-      this.allRequests.next(requests)
-    })
-  }
+  constructor(private http: HttpClient) { }
 
   getUser() {
     const getUserUrl = `${baseUrl}/users`
@@ -33,7 +28,8 @@ export class RequestService {
   }
 
   getAllRequests() {
-    return this.allRequests
+    const getAllRequestsUrl = `${baseUrl}/requests`
+    return this.http.get(getAllRequestsUrl)
   }
 
   createRequest(requestData, primaryContactId, alternativeContactId, userId) {
@@ -55,7 +51,8 @@ export class RequestService {
 
   updateRequest(requestId, data, primaryContactId, alternativeContactId) {
     var url
-    if(alternativeContactId != "") {
+    console.log(alternativeContactId)
+    if(alternativeContactId != null) {
       url = `${baseUrl}/request/${requestId}?primaryContactId=${primaryContactId}&alternativeContactId=${alternativeContactId}`
     } else {
       url = `${baseUrl}/request/${requestId}?primaryContactId=${primaryContactId}`
