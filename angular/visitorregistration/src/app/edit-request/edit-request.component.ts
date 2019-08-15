@@ -144,9 +144,8 @@ export class EditRequestComponent implements OnInit {
     var visitFrom = visitOnDate.toString()
     var visitTo = visitToDate.toString()
 
-    visitFrom = visitFrom.replace("00:00", visitOnTime)
-    visitTo = visitTo.replace("00:00", visitToTime)
-
+    visitFrom = visitFrom.substring(0, 16) + visitOnTime
+    visitTo = visitTo.substring(0, 16) + visitToTime
     visitFrom = new Date(visitFrom).toISOString()
     visitTo = new Date(visitTo).toISOString()
 
