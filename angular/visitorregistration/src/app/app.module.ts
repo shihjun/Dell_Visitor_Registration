@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SubmitRequestComponent } from './submit-request/submit-request.component';
 import { SubmitRequestSuccessAlert } from './submit-request/submit-request.component';
 import { RequestListComponent } from './request-list/request-list.component';
-import { RequestDetailsComponent, CancelRequestSuccessAlert } from './request-details/request-details.component';
+import { RequestDetailsComponent, CancelRequestSuccessAlert, CancelRequestConfirmation } from './request-details/request-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -27,7 +27,8 @@ import { RegistrationComponent } from './registration/registration.component';
     UsersComponent,
     SaveRequestSuccessAlert,
     CancelRequestSuccessAlert,
-    RegistrationComponent
+    RegistrationComponent,
+    CancelRequestConfirmation
   ],
   imports: [
     BrowserModule,
@@ -48,6 +49,6 @@ import { RegistrationComponent } from './registration/registration.component';
   providers: [
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SubmitRequestSuccessAlert, CancelRequestSuccessAlert, SaveRequestSuccessAlert]
+  entryComponents: [SubmitRequestSuccessAlert, CancelRequestSuccessAlert, SaveRequestSuccessAlert, CancelRequestConfirmation]
 })
 export class AppModule { }

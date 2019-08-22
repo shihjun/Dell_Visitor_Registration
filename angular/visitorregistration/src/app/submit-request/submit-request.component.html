@@ -1,18 +1,29 @@
-<header class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
-    <a class="navbar-brand" href="/">
-      <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
-    </a>
-    <a href="/" style="text-decoration: none;">
-      <span id="webtitle">Dell Visitor Registration</span>
-    </a>
-      <ul class="navbar-nav mr-auto ml-5"></ul>
-    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="viewRequest-btn" routerLink="/user/{{ userId }}/requests">View Request</button>
-  </nav>
-</header>
+<div class="bg-light">
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light remove-NavPadding">
+            <a class="navbar-brand" href="/">
+              <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+            </a>
+            <a href="/" style="text-decoration: none;">
+              <span id="webtitle">Dell Visitor Registration</span>
+            </a>
+          </nav>
+        </div>
+        <div class="col-sm-4 top-btn d-flex justify-content-end">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" routerLink="/user/{{ userId }}/requests">View Request</button>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
 <div class="container">
 <div class="row main-box">
-  <h3>Request</h3>
+  <div class="col-sm-12">
+    <h3>Request</h3>
+  </div>
 </div>
 <div class="row" id="line"></div>
   <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
@@ -27,7 +38,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="ic-input" class="col-sm-2 col-form-label">IC Number :</label>
+      <label for="ic-input" class="col-sm-2 col-form-label">IC/Passport No. :</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" id="ic-input" formControlName="icNumber" placeholder="IC Number">
       </div>
@@ -40,7 +51,7 @@
       <label for="visitTo-input" class="col-sm-2 col-form-label">Visit On :</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
-          <input matInput [matDatepicker]="visitOnpicker" formControlName="visitOnDate" placeholder="Choose a date" readonly>
+          <input matInput [matDatepicker]="visitOnpicker" [min]="minDate" formControlName="visitOnDate" placeholder="Choose a date" readonly>
           <mat-datepicker-toggle matSuffix [for]="visitOnpicker"></mat-datepicker-toggle>
           <mat-datepicker #visitOnpicker></mat-datepicker>
         </mat-form-field>
@@ -51,7 +62,7 @@
       <label for="visitTo-input" class="col-sm-2 col-form-label">Visit To :</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
-          <input matInput [matDatepicker]="visitTopicker" formControlName="visitToDate" placeholder="Choose a date" readonly>
+          <input matInput [matDatepicker]="visitTopicker" [min]="minDate" formControlName="visitToDate" placeholder="Choose a date" readonly>
           <mat-datepicker-toggle matSuffix [for]="visitTopicker"></mat-datepicker-toggle>
           <mat-datepicker #visitTopicker></mat-datepicker>
         </mat-form-field>
@@ -74,7 +85,7 @@
           <label class="setMargin">&nbsp;Name :</label>
           <input type="text" class="form-control" id="primaryContact-input" [matAutocomplete]="auto" formControlName="primaryCN" placeholder="Full name">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let name of allNames" [value]="name">{{ name }}</mat-option>
+            <mat-option *ngFor="let name of (filteredPrimaryUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
           <label class="setMargin">&nbsp;Phone Number :</label>
           <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number">
@@ -84,7 +95,7 @@
           <label class="setMargin">&nbsp;Name :</label>
           <input type="text" class="form-control" id="alternativeContact-input"  [matAutocomplete]="auto2" formControlName="alternativeCN" placeholder="Full name">
           <mat-autocomplete #auto2="matAutocomplete">
-            <mat-option *ngFor="let name of allNames" [value]="name">{{ name }}</mat-option>
+            <mat-option *ngFor="let name of (filteredAlternativeUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
           <label class="setMargin">&nbsp;Phone Number :</label>
           <input type="text" class="form-control" formControlName="alternativePhone" placeholder="Phone Number">
@@ -97,7 +108,10 @@
     
     <div class="row" id="line"></div>
     <div class="form-group row">
-      <div class="col-sm-1 offset-sm-11">
+      <div class="col-sm-1 offset-sm-10">
+        <button type="button" class="btn btn-danger" routerLink="/user/{{ userId }}/requests">Cancel</button>
+      </div>
+      <div class="col-sm-1">
         <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </div>
     </div>

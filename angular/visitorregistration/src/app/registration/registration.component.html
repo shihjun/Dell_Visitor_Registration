@@ -1,3 +1,47 @@
-<p>
-  registration works!
-</p>
+<div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Registration Details</h3>
+    </div>
+  </div>
+  <div class="row" id="line"></div>
+  <div class="d-flex flex-column" id="registration-box">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5>Total Visit Days - {{ totalVisitDay }}</h5>
+        </div>
+      </div>
+    <div *ngFor="let date of registrationDates" class="sub-box">
+      <div class="row d-flex">
+        <div class="col-sm-2">
+          <label><b>Visit Date</b></label>
+          <p>{{ date }}</p>
+        </div>
+        <div class="col-sm-2">
+          <label><b>Belongings</b></label>
+          <textarea class="form-control" aria-label="All belongings"></textarea>
+        </div>
+        <div class="col-sm-3">
+          <label><b>Escort By</b></label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-sm-6">
+              <label><b>Check-In</b></label>
+              <p>-</p>
+            </div>
+            <div class="col-sm-6">
+              <label><b>Check-Out</b></label>
+              <p>-</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2 d-flex justify-content-center" id="btn-section">
+          <button *ngIf="!isCheckedIn" type="button" class="btn btn-outline-primary">Check In</button>
+          <button *ngIf="isCheckedIn" type="button" class="btn btn-outline-primary">Check Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

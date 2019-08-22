@@ -19,7 +19,6 @@ export class EditRequestComponent implements OnInit {
   requestId = null
   allUsers: any
   allNames: string[]
-  filteredUsers: Observable<string[]>
   fromDate = null
   fromTime = null
   toDate = null
@@ -31,6 +30,9 @@ export class EditRequestComponent implements OnInit {
   alternativeContactName = null
   alternativeContactBadge = null
   alternativeContactPhone = null
+  minDate = new Date();
+  filteredPrimaryUsers: Observable<string[]>
+  filteredAlternativeUsers: Observable<string[]>
 
   requestForm = new FormGroup({
     visitorName: new FormControl("", [Validators.required]),
@@ -61,9 +63,6 @@ export class EditRequestComponent implements OnInit {
         this.aContactId = userArray[i].id
         console.log("Alternative Contact : " + this.aContactId)
       }
-      // if(this.requestForm.controls.alternativeCN.value == null) {
-      //   this.aContactId = ""
-      // }
     }
   }
 
@@ -78,6 +77,12 @@ export class EditRequestComponent implements OnInit {
       }
       console.log(names)
       this.allNames = names
+      this.filteredPrimaryUsers = this.requestForm.controls.primaryCN.valueChanges.pipe(
+        startWith(''), map(value => this._filter(value))
+      );
+      this.filteredAlternativeUsers = this.requestForm.controls.alternativeCN.valueChanges.pipe(
+        startWith(''), map(value => this._filter(value))
+      );
     })
   }
 
@@ -126,11 +131,6 @@ export class EditRequestComponent implements OnInit {
     this.getAllUserInfo()
     this.getAllUsers()
     this.userId = this.route.snapshot.params.userId
-
-    this.filteredUsers = this.requestForm.controls.primaryCN.valueChanges.pipe(
-      startWith(''), map(value => this._filter(value))
-    )
-    
   }
 
   openDialog() {
