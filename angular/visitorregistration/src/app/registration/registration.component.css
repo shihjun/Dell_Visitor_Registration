@@ -1,0 +1,16 @@
+#registration-box {
+    margin-bottom: 3%;
+}
+
+.sub-box {
+    background: rgb(180,180,180,0.5);
+    margin-top: 2%;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+#btn-section {
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    display: flex;
+}

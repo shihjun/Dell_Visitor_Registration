@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-submit-request',
@@ -19,6 +20,9 @@ export class SubmitRequestComponent implements OnInit {
   pContactId = null
   aContactId = null
   userId = null
+  minDate = new Date();
+  filteredPrimaryUsers: Observable<string[]>
+  filteredAlternativeUsers: Observable<string[]>
 
   requestForm = new FormGroup({
     visitorName: new FormControl("", [Validators.required]),
@@ -58,8 +62,19 @@ export class SubmitRequestComponent implements OnInit {
       }
       console.log(names)
       this.allNames = names
-      console.log(this.allNames)
+      this.filteredPrimaryUsers = this.requestForm.controls.primaryCN.valueChanges.pipe(
+        startWith(''), map(value => this._filter(value))
+      );
+      this.filteredAlternativeUsers = this.requestForm.controls.alternativeCN.valueChanges.pipe(
+        startWith(''), map(value => this._filter(value))
+      );
     })
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase()
+    
+    return this.allNames.filter(name => name.toLowerCase().includes(filterValue))
   }
 
   getContactId(userArray) {
