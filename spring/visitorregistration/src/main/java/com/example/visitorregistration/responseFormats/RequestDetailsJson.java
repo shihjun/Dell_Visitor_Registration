@@ -8,9 +8,6 @@ public class RequestDetailsJson {
   Request request;
   User primaryContact;
   User alternativeContact;
-  Registration registration;
-  User checkinBy;
-  User escortBy;
 
   public Request getRequest() {
     return this.request;
