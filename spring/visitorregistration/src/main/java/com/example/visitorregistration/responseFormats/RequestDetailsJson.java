@@ -33,28 +33,4 @@ public class RequestDetailsJson {
     this.alternativeContact = alternativeContact;
   }
 
-  public Registration getRegistration() {
-    return this.registration;
-  }
-
-  public void setRegistration(Registration registration) {
-    this.registration = registration;
-  }
-
-  public User getCheckinBy() {
-    return this.checkinBy;
-  }
-
-  public void setCheckinBy(User checkinBy) {
-    this.checkinBy = checkinBy;
-  }
-
-  public User getEscortBy() {
-    return this.escortBy;
-  }
-
-  public void setEscortBy(User escortBy) {
-    this.escortBy = escortBy;
-  }
-
 }
