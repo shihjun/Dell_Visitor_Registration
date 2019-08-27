@@ -16,3 +16,5 @@
 2019-08-26 16:57:01.089 +08 [23588] LOG:  invalid record length at 0/173C470: wanted 24, got 0
 2019-08-26 16:57:01.089 +08 [23588] LOG:  redo done at 0/173C438
 2019-08-26 16:57:01.293 +08 [3168] LOG:  database system is ready to accept connections
+2019-08-26 17:48:24.031 +08 [20664] LOG:  incomplete startup packet
+2019-08-26 17:48:24.044 +08 [8140] LOG:  invalid length of startup packet
