@@ -19,62 +19,63 @@
     </div>
   </header>
 </div>
+
 <div class="container">
-<div class="row main-box">
-  <div class="col-sm-12">
-    <h3>Request</h3>
+  <div class="row main-box">
+    <div class="col-sm-10">
+      <h3>Request Details - {{ requestInfo.request.id }} - Edit</h3>
+    </div>
   </div>
-</div>
-<div class="row" id="line"></div>
+  <div class="row" id="line"></div>
   <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
     <div class="form-group row">
       <label for="name-input" class="col-sm-2 col-form-label">Visitor's Name :</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="name-input" formControlName="visitorName" placeholder="Name">
+        <input type="text" class="form-control" id="name-input" formControlName="visitorName" placeholder="Name" value="{{ requestInfo.request.name }}">
       </div>
       <label for="phone-input" class="col-sm-2 col-form-label">Phone :</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="phone-input" formControlName="phoneNumber" placeholder="Phone Number">
+        <input type="text" class="form-control" id="phone-input" formControlName="phoneNumber" placeholder="Phone Number" value="{{ requestInfo.request.phone }}">
       </div>
     </div>
     <div class="form-group row">
       <label for="ic-input" class="col-sm-2 col-form-label">IC/Passport No. :</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="ic-input" formControlName="icNumber" placeholder="IC Number">
+        <input type="text" class="form-control" id="ic-input" formControlName="icNumber" placeholder="IC Number" value="{{ requestInfo.request.ic }}">
       </div>
       <label for="carPlate-input" class="col-sm-2 col-form-label">Car Plate :</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="carPlate-input" formControlName="carplateNumber" placeholder="Car Plate Number">
+        <input type="text" class="form-control" id="carPlate-input" formControlName="carplateNumber" placeholder="Car Plate Number" value="{{ requestInfo.request.carPlate }}">
       </div>
     </div>
     <div class="form-group row">
       <label for="visitTo-input" class="col-sm-2 col-form-label">Visit On :</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
-          <input matInput [matDatepicker]="visitOnpicker" [min]="minDate" formControlName="visitOnDate" placeholder="Choose a date" readonly>
+          <input matInput [matDatepicker]="visitOnpicker" [min]="minDate" formControlName="visitOnDate" placeholder="Choose a date" [value]="fromDate" readonly>
           <mat-datepicker-toggle matSuffix [for]="visitOnpicker"></mat-datepicker-toggle>
           <mat-datepicker #visitOnpicker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col-sm-2">
-        <input type="time" class="form-control" formControlName="visitOnTime" name="usr_time">
+        <input type="time" class="form-control" formControlName="visitOnTime" name="usr_time" value="{{ fromTime }}">
       </div>
       <label for="visitTo-input" class="col-sm-2 col-form-label">Visit To :</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
-          <input matInput [matDatepicker]="visitTopicker" [min]="minDate" formControlName="visitToDate" placeholder="Choose a date" readonly>
+          <input matInput [matDatepicker]="visitTopicker" [min]="minDate" formControlName="visitToDate" placeholder="Choose a date" [value]="toDate" readonly>
           <mat-datepicker-toggle matSuffix [for]="visitTopicker"></mat-datepicker-toggle>
           <mat-datepicker #visitTopicker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col-sm-2">
-        <input type="time" class="form-control" formControlName="visitToTime" name="usr_time">
+        <input type="time" class="form-control" formControlName="visitToTime" name="usr_time" value="{{ toTime }}">
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
         <label for="visitReason-input">Reason to visit :</label>
-        <textarea class="form-control" id="visitReason-input" formControlName="visitReason" rows="3"></textarea>
+        <textarea class="form-control" id="visitReason-input" formControlName="visitReason" rows="3" value="{{ requestInfo.request.purpose }}"></textarea>
       </div>
     </div>
     <h3 id="contact">Contact - Person to escort</h3>
@@ -88,7 +89,7 @@
             <mat-option *ngFor="let name of (filteredPrimaryUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
           <label class="setMargin">&nbsp;Phone Number :</label>
-          <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number">
+          <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number" value="{{ requestInfo.request.primaryContactPhone }}">
         </div>
         <div class="col-sm-6">
           <h5>Alternative Contact</h5>
@@ -98,21 +99,17 @@
             <mat-option *ngFor="let name of (filteredAlternativeUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
           <label class="setMargin">&nbsp;Phone Number :</label>
-          <input type="text" class="form-control" formControlName="alternativePhone" placeholder="Phone Number">
+          <input type="text" class="form-control" formControlName="alternativePhone" placeholder="Phone Number" value="{{ requestInfo.request.alternativeContactPhone }}">
         </div>
       </div>
     </div>
-    <div *ngIf="isSubmitted == false" class="alert alert-danger" role="alert">
-      Please fill in all the required fields.
-    </div>
-    
     <div class="row" id="line"></div>
     <div class="form-group row">
       <div class="col-sm-1 offset-sm-10">
-        <button type="button" class="btn btn-danger" routerLink="/user/{{ userId }}/requests">Cancel</button>
+        <button type="button" class="btn btn-danger" routerLink="/user/{{ userId }}/request/{{ requestInfo.request.id }}">Cancel</button>
       </div>
-      <div class="col-sm-1">
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      <div class="col-sm-1" *ngIf="requestInfo.request.status == 'New'">
+        <button type="submit" class="btn btn-primary mb-2">Save</button>
       </div>
     </div>
   </form>

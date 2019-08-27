@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Requests } from "./Requests";
 import { Users } from "./Users";
+import { request } from "http";
 
 @Entity()
 export class Registrations {
@@ -44,9 +45,9 @@ export class Registrations {
   @Column()
   updated_by: number;
 
-  @OneToOne(type => Requests)
+  @ManyToOne(type => Requests, request => request.registrationId)
   @JoinColumn({ name: "request_id" })
-  requests: Requests;
+  requestId: Requests;
 
   @ManyToOne(type => Users, user => user.registrationCheckinBy)
   @JoinColumn({ name: "checkin_by" })

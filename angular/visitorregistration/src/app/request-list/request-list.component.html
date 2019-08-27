@@ -1,47 +1,49 @@
-<header class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light offset-sm-1">
-    <a class="navbar-brand" href="#">
-      <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
-    </a>
-      <span id="webtitle">Dell Visitor Registration</span>
-      <ul class="navbar-nav mr-auto ml-5">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" style="padding: 0;">Home</a>
-        </li>
-      </ul>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/" id="submitRequest-btn">Submit Request</button>
-  </nav>
-</header>
+<div class="bg-light">
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light remove-NavPadding">
+            <a class="navbar-brand" href="/">
+              <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+            </a>
+            <a href="/" style="text-decoration: none;">
+              <span id="webtitle">Dell Visitor Registration</span>
+            </a>
+          </nav>
+        </div>
+        <div class="col-sm-4 top-btn d-flex justify-content-end">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button" routerLink="/user/{{ userId }}/submitrequest" id="submitRequest-btn">Submit Request</button>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
 <div class="container">
   <table class="table table-hover viewRequest-table">
     <thead class="thead-dark">
       <th scope="col">Request ID</th>
       <th scope="col">Visitor Name</th>
       <th scope="col">Status</th>
-      <th scope="col">Visit On</th>
+      <th scope="col">Visit From</th>
       <th scope="col">Visit To</th>
     </thead>
-    <tbody>
-      <tr routerLink="/user/userId/requests/requestId" style="cursor: pointer;">
-        <th scope="row">000001</th>
-        <td>First visitor</td>
-        <td>Pending</td>
-        <td>7/19/2019 10:00</td>
-        <td>7/21/2019 19:00</td>
+    <tbody *ngIf="isSecurity == false">
+      <tr *ngFor="let request of requests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
+        <th scope="row">{{ request.id }}</th>
+        <td>{{ request.name }}</td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.visitFrom }}</td>
+        <td>{{ request.visitTo }}</td>
       </tr>
-      <tr routerLink="/user/userId/requests/requestId" style="cursor: pointer;">
-        <th scope="row">000002</th>
-        <td>Dastan</td>
-        <td>Complete</td>
-        <td>7/15/2019 9:00</td>
-        <td>7/18/2019 12:00</td>
-      </tr>
-      <tr routerLink="/user/userId/requests/requestId" style="cursor: pointer;">
-        <th scope="row">000003</th>
-        <td>Test</td>
-        <td>Cancelled</td>
-        <td>8/15/2019 12:00</td>
-        <td>8/31/2019 10:00</td>
+    </tbody>
+    <tbody *ngIf="isSecurity == true">
+      <tr *ngFor="let request of allRequests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
+        <th scope="row">{{ request.id }}</th>
+        <td>{{ request.name }}</td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.visitFrom }}</td>
+        <td>{{ request.visitTo }}</td>
       </tr>
     </tbody>
   </table>

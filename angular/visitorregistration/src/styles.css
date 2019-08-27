@@ -4,15 +4,32 @@
     height: 40px;
 }
 
+.top-btn {
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    display: flex;
+}
+
+.topbtn-marginleft {
+    margin-left: 3%;
+}
+
+.remove-NavPadding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 #webtitle {
     font-size: 18px;
+    color: 	#008ffe;
+}
+
+.setMargin {
+    margin-bottom: 0;
+    margin-top: 3%;
 }
 
 #viewRequest-btn {
-    margin-right: 10%;
-}
-
-#submitRequest-btn {
     margin-right: 10%;
 }
 
