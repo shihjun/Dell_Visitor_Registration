@@ -42,13 +42,14 @@ public class RegistrationController {
     return registrationRepository.findAll(Sort.by(Sort.Order.desc("checkinAt"), Sort.Order.desc("id")));
   }
 
-  @GetMapping(value = "request/{requestId}/registration", produces = "application/json")
+  @GetMapping(value = "request/{requestId}/registrations", produces = "application/json")
   public RegistrationDetailsJson displayRegistrationDetails(@PathVariable long requestId) {
 
     RegistrationDetailsJson json = new RegistrationDetailsJson();
     Request request = requestRepository.findById(requestId).orElse(new Request());
 
-    ArrayList<Registration> registrations = registrationRepository.findByRequest(request);
+    ArrayList<Registration> registrations = registrationRepository.findByRequest(request,
+        Sort.by(Sort.Order.asc("checkinAt")));
 
     ArrayList<Registration> registrationList = new ArrayList<>();
     ArrayList<User> checkinByList = new ArrayList<>();
