@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditRequestComponent, SaveRequestSuccessAlert } from './edit-request/edit-request.component';
 import { UsersComponent } from './users/users.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent, CheckinRegistrationSuccessAlert, CheckoutRegistrationSuccessAlert } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,9 @@ import { RegistrationComponent } from './registration/registration.component';
     SaveRequestSuccessAlert,
     CancelRequestSuccessAlert,
     RegistrationComponent,
-    CancelRequestConfirmation
+    CancelRequestConfirmation,
+    CheckinRegistrationSuccessAlert,
+    CheckoutRegistrationSuccessAlert
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { RegistrationComponent } from './registration/registration.component';
   providers: [
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SubmitRequestSuccessAlert, CancelRequestSuccessAlert, SaveRequestSuccessAlert, CancelRequestConfirmation]
+  entryComponents: [SubmitRequestSuccessAlert, CancelRequestSuccessAlert, SaveRequestSuccessAlert,
+                    CancelRequestConfirmation, CheckinRegistrationSuccessAlert, CheckoutRegistrationSuccessAlert]
 })
 export class AppModule { }

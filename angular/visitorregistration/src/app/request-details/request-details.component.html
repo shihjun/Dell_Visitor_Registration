@@ -63,7 +63,7 @@
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <label class="details-font">IC Number :</label>
+          <label class="details-font">IC/Passport No. :</label>
         </div>
         <div class="col-sm-6">
           <label class="details-font">{{ requestInfo.request.ic }}</label>
@@ -218,6 +218,8 @@
                     [visitFromDate]="visitFromDate" 
                     [visitToDate]="visitToDate" 
                     [registrationDates]="registrationDates"
-                    [totalVisitDay]="totalVisitDay">
+                    [totalVisitDay]="totalVisitDay"
+                    [userId]="userId"
+                    [allUsers]="allUsers">
   </app-registration>
 </div>
