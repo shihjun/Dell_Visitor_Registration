@@ -75,6 +75,7 @@ public class RegistrationController {
   @PostMapping(value = "/user/{userId}/request/{requestId}/registrations")
   public void checkInForRegistration(@RequestBody Registration registration, @PathVariable("userId") Long userId,
       @PathVariable("requestId") Long requestId, @RequestParam Long escortById) {
+
     User createdBy = userRepository.findById(userId).orElse(new User());
     User updatedBy = userRepository.findById(userId).orElse(new User());
     User checkinBy = userRepository.findById(userId).orElse(new User());

@@ -40,7 +40,6 @@ export class RequestService {
     } else {
       url = `${baseUrl}/user/${userId}/requests?primaryContactId=${primaryContactId}`
     }
-    console.log("Create Request End point : " + url)
     return this.http.post(url, requestData)
   }
 
@@ -51,7 +50,6 @@ export class RequestService {
 
   updateRequest(requestId, data, primaryContactId, alternativeContactId) {
     var url
-    console.log(alternativeContactId)
     if(alternativeContactId != null) {
       url = `${baseUrl}/request/${requestId}?primaryContactId=${primaryContactId}&alternativeContactId=${alternativeContactId}`
     } else {

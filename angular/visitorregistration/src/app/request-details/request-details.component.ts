@@ -51,9 +51,9 @@ export class RequestDetailsComponent implements OnInit {
       for (let i = 0; i < NumOfDays; i++) {
         var registrationDate = new Date(new Date(this.requestInfo.request.visitFrom).getTime() + (oneDay * i)).toString().substring(0, 15);
         this.registrationDates[i] = registrationDate
-        console.log("registrationDate: " + registrationDate)
+        // console.log("registrationDate: " + registrationDate)
       }
-      console.log(this.registrationDates)
+      // console.log(this.registrationDates)
     })
   }
 
