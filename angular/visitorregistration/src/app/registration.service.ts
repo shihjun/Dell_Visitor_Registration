@@ -11,7 +11,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   getRegistration(requestId) {
-    const getRegistrationUrl = `${baseUrl}/request/${requestId}/registration`
+    const getRegistrationUrl = `${baseUrl}/request/${requestId}/registrations`
     return this.http.get(getRegistrationUrl)
   }
 
@@ -20,8 +20,8 @@ export class RegistrationService {
     return this.http.post(checkInUrl, data)
   }
 
-  checkOutRegistration(data, userId, registrationId, escortById) {
-    var checkOutUrl = `${baseUrl}/user/${userId}/registration/${registrationId}?escortById=${escortById}&status=Visiting`
+  checkOutRegistration(data, userId, registrationId, escortById, status) {
+    var checkOutUrl = `${baseUrl}/user/${userId}/registration/${registrationId}?escortById=${escortById}&status=${status}`
     return this.http.post(checkOutUrl, data)
   }
 }

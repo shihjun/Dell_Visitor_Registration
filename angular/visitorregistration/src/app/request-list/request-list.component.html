@@ -21,7 +21,7 @@
 </div>
 <div class="container">
   <table class="table table-hover viewRequest-table">
-    <thead class="thead-dark">
+    <thead style="background-color: #3287c1; color: white; letter-spacing: 1.5px;">
       <th scope="col">Request ID</th>
       <th scope="col">Visitor Name</th>
       <th scope="col">Status</th>
@@ -32,7 +32,7 @@
       <tr *ngFor="let request of requests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
         <th scope="row">{{ request.id }}</th>
         <td>{{ request.name }}</td>
-        <td>{{ request.status }}</td>
+        <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
         <td>{{ request.visitFrom }}</td>
         <td>{{ request.visitTo }}</td>
       </tr>
@@ -41,7 +41,7 @@
       <tr *ngFor="let request of allRequests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
         <th scope="row">{{ request.id }}</th>
         <td>{{ request.name }}</td>
-        <td>{{ request.status }}</td>
+        <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
         <td>{{ request.visitFrom }}</td>
         <td>{{ request.visitTo }}</td>
       </tr>
