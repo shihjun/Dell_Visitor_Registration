@@ -1,3 +1,9 @@
 .viewRequest-table {
     margin-top: 2%;
 }
+
+.status {
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+}

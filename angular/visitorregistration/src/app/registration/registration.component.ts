@@ -25,8 +25,9 @@ export class RegistrationComponent implements OnInit {
   filteredUsers: Observable<string[]>
   isCheckedIn: boolean = false
   currentTime = new Date()
+  currentDate = new Date().toString().substring(0, 15)
   belongingsForm = new FormControl()
-  escortForm = new FormControl("", [Validators.required])
+  escortForm = new FormControl(null, [Validators.required])
   escortById = null;
   allRequestRegistrations: any
   checkInDates: any = null
@@ -34,10 +35,15 @@ export class RegistrationComponent implements OnInit {
   checkOutTime = null
   registrationDetails: any = []
   registrationId = null
+  isEscortBySelected = null
+  currentDateNum: number
+  visitFrom: number
+  visitToCurrentDays
 
   ngOnInit() {
     this.getRequestRegistrations()
     this.getAllUsers()
+    console.log(this.registrationDates)
   }
 
   openCheckInDialog() {
@@ -75,6 +81,8 @@ export class RegistrationComponent implements OnInit {
       
       this.checkRegistrationIsExist()
     })
+
+    
   }
 
   checkRegistrationIsExist() {
@@ -86,13 +94,15 @@ export class RegistrationComponent implements OnInit {
       if(this.allRequestRegistrations.registrations.length != 0) {
         for(let j = 0; j < this.allRequestRegistrations.registrations.length; j++) {
           var date = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(0, 15)
-          this.checkInTime = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(16, 21)
-          
-          if(this.allRequestRegistrations.registrations[j].checkoutAt != null) {
-            this.checkOutTime = new Date(this.allRequestRegistrations.registrations[j].checkoutAt).toString().substring(16, 21)
-          }
           
           if(this.registrationDates[i] == date) {
+            this.checkInTime = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(16, 21)
+
+            if(this.allRequestRegistrations.registrations[j].checkoutAt != null) {
+              this.checkOutTime = new Date(this.allRequestRegistrations.registrations[j].checkoutAt).toString().substring(16, 21)
+            } else {
+              this.checkOutTime = null
+            }
             data = {
               visitDate: this.registrationDates[i],
               belongings: this.allRequestRegistrations.registrations[j].belongings,
@@ -117,7 +127,18 @@ export class RegistrationComponent implements OnInit {
       }
     }
     console.log(this.registrationDetails)
+
+    this.currentDateNum = Math.round(Math.abs(new Date((new Date().toString().substring(0, 15))).getTime()))
+    this.visitFrom = Math.round(Math.abs(new Date(this.visitFromDate.substring(0, 15)).getTime()))
+    var oneDay = 24 * 60 * 60 * 1000;
+    var NumOfDays = Math.round(Math.abs((new Date(new Date().toString().substring(0, 15)).getTime() - new Date(this.visitFromDate.substring(0, 15)).getTime()) / oneDay))
+    this.visitToCurrentDays = NumOfDays​
+    console.log("Current days till visit: " + NumOfDays)
+    console.log(this.currentDateNum)
+    console.log(this.visitFrom)
   }
+
+
 
   checkIn() {
     if(this.escortForm.value != null) {
@@ -126,51 +147,55 @@ export class RegistrationComponent implements OnInit {
           this.escortById = this.allUsers[i].id
         }
       }
+      const data = {
+        checkinAt: this.currentTime,
+        checkoutAt: null,
+        belongings: this.belongingsForm.value,
+        createdAt: this.currentTime,
+        updatedAt: this.currentTime
+      }
+      console.log(data)
+      this.registrationService.checkInRegistration(data, this.userId, this.requestInfo.request.id, this.escortById).subscribe(response => {
+        console.log("Check in Successfully")
+        this.openCheckInDialog()
+        this.ngOnInit()
+      })
+    } else {
+      this.isEscortBySelected = false
     }
-
-    console.log(this.escortById)
-
-    const data = {
-      checkinAt: this.currentTime,
-      checkoutAt: null,
-      belongings: this.belongingsForm.value,
-      createdAt: this.currentTime,
-      updatedAt: this.currentTime
-    }
-
-    console.log(data)
-
-    this.registrationService.checkInRegistration(data, this.userId, this.requestInfo.request.id, this.escortById).subscribe(response => {
-      console.log("Check in Successfully")
-    })
-    
-    this.openCheckInDialog()
   }
 
   checkOut() {
     var data
+    var status
+
     for(let j = 0; j < this.allRequestRegistrations.registrations.length; j++) {
-      var date = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(0, 15)
-      this.checkInTime = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(16, 21)
-      this.checkOutTime = new Date(this.allRequestRegistrations.registrations[j].checkoutAt).toString().substring(16, 21)
-          
-      if(this.registrationDates[j] == date) {
+      var checkinDate = new Date(this.allRequestRegistrations.registrations[j].checkinAt).toString().substring(0, 15)
+      var currentdate = new Date(this.currentTime).toString().substring(0, 15)        
+    
+      if(j == this.registrationDates.length - 1) {
+        status = "Complete"
+      } else {
+        status = "On-Site"
+      }
+
+      if(currentdate == checkinDate) {
         this.registrationId = this.allRequestRegistrations.registrations[j].id
         this.escortById = this.allRequestRegistrations.escortBy[j].id
         j = this.allRequestRegistrations.registrations.length
-      }
-
-      data = {
-        checkoutAt: this.currentTime,
-        updatedAt: this.currentTime
-      }
-
-      this.registrationService.checkOutRegistration(data, this.userId, this.registrationId, this.escortById).subscribe(response => {
-        console.log("Check out Successfully")
-      })
-      
+      } 
     }
-    this.openCheckOutDialog()
+
+    data = {
+      checkoutAt: this.currentTime,
+      updatedAt: this.currentTime
+    }
+
+    this.registrationService.checkOutRegistration(data, this.userId, this.registrationId, this.escortById, status).subscribe(response => {
+      console.log("Check out Successfully")
+      this.openCheckOutDialog()
+      this.ngOnInit()
+    })
   }
 }
 

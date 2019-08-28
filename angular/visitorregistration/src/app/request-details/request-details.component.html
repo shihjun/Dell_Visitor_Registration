@@ -28,9 +28,9 @@
       <h3>Request Details - {{ requestInfo.request.id }}</h3>
     </div>
     <div class="col-sm-3 d-flex justify-content-end">
-      <button *ngIf="requestInfo.request.status == 'New'" class="btn btn-outline-primary"
+      <button *ngIf="requestInfo.request.status == 'Expected'" class="btn btn-outline-primary"
         routerLink="/user/{{ userId }}/request/{{ requestInfo.request.id }}/edit" id="editbtn-request">Edit</button>
-      <button *ngIf="requestInfo.request.status == 'New'" (click)="openConfirmationDialog()" type="submit"
+      <button *ngIf="requestInfo.request.status == 'Expected'" (click)="openConfirmationDialog()" type="submit"
         class="btn btn-outline-danger topbtn-marginleft">Cancel Request</button>
     </div>
   </div>
@@ -216,7 +216,6 @@
     </div>
   </div>
   <div class="row" id="line"></div>
-<<<<<<< HEAD
   <app-registration *ngIf="isSecurity == true" [requestInfo]="requestInfo" 
                     [visitFromDate]="visitFromDate" 
                     [visitToDate]="visitToDate" 
@@ -224,9 +223,5 @@
                     [totalVisitDay]="totalVisitDay"
                     [userId]="userId"
                     [allUsers]="allUsers">
-=======
-  <app-registration *ngIf="isSecurity == true" [requestInfo]="requestInfo" [visitFromDate]="visitFromDate"
-    [visitToDate]="visitToDate" [registrationDates]="registrationDates" [totalVisitDay]="totalVisitDay">
->>>>>>> 2eb7f4506f1448b8a27a9d3e81570156a62744b8
   </app-registration>
 </div>

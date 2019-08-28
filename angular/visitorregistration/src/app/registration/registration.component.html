@@ -11,13 +11,14 @@
           <h5>Total Visit Days - {{ totalVisitDay }}</h5>
         </div>
       </div>
-    <div *ngFor="let details of registrationDetails;let i = index" class="sub-box">
-      <div class="row d-flex">
+    <div *ngFor="let details of registrationDetails;let i = index" class="">
+      <div *ngIf="currentDateNum >= visitFrom && i <= visitToCurrentDays" class="row d-flex sub-box">
         <div class="col-sm-2">
           <label><b>Visit Date</b></label>
           <p>{{ details.visitDate }}</p>
         </div>
-        <div *ngIf="details.checkInTime == null" class="col-sm-2">
+
+        <div *ngIf="details.checkInTime == null && currentDate == details.visitDate" class="col-sm-2">
           <label><b>Belongings</b></label>
           <textarea [formControl]="belongingsForm" class="form-control" aria-label="All belongings"></textarea>
         </div>
@@ -25,19 +26,30 @@
           <label><b>Belongings</b></label>
           <p>{{ details.belongings }}</p>
         </div>
-        
-        <div *ngIf="details.checkInTime == null" class="col-sm-3">
+        <div *ngIf="details.checkInTime == null && currentDate != details.visitDate" class="col-sm-2">
+          <label><b>Belongings</b></label>
+          <p>-</p>
+        </div>
+
+        <div *ngIf="details.checkInTime == null && currentDate == details.visitDate" class="col-sm-3">
           <label><b>Escort By</b></label>
           <input [formControl]="escortForm" [matAutocomplete]="auto" type="text" class="form-control">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let name of (filteredUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
+          <div *ngIf="isEscortBySelected == false" class="alert alert-danger" role="alert">
+            Please fill the Escort by field.
+          </div>
         </div>
-
         <div *ngIf="details.checkInTime != null" class="col-sm-3">
           <label><b>Escort By</b></label>
           <p>{{ details.escortBy }}</p>
         </div>
+        <div *ngIf="details.checkInTime == null && currentDate != details.visitDate" class="col-sm-3">
+          <label><b>Escort By</b></label>
+          <p>-</p>
+        </div>
+
         <div class="col-sm-3">
           <div class="row">
             <div *ngIf="details.checkInTime == null" class="col-sm-6">
@@ -59,8 +71,8 @@
           </div>
         </div>
         <div class="col-sm-2 d-flex justify-content-center" id="btn-section">
-          <button *ngIf="details.checkInTime == null" (click)="checkIn()" type="button" class="btn btn-outline-primary">Check In</button>
-          <button *ngIf="details.checkInTime != null && details.checkOutTime == null" (click)="checkOut()" type="button" class="btn btn-outline-primary">Check Out</button>
+          <button *ngIf="details.checkInTime == null && currentDate == details.visitDate" (click)="checkIn()" type="button" class="btn btn-outline-primary">Check In</button>
+          <button *ngIf="details.checkInTime != null && details.checkOutTime == null && currentDate == details.visitDate" (click)="checkOut()" type="button" class="btn btn-outline-primary">Check Out</button>
         </div>
       </div>
     </div>

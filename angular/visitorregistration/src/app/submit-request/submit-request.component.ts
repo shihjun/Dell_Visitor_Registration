@@ -117,7 +117,7 @@ export class SubmitRequestComponent implements OnInit {
       visitFrom: visitFrom,
       visitTo: visitTo,
       purpose: this.requestForm.value.visitReason,
-      status: "New",
+      status: "Expected",
       primaryContactPhone: this.requestForm.value.primaryPhone,
       alternativeContactPhone: this.requestForm.value.alternativePhone,
       createdAt: currentDate,

@@ -17,6 +17,20 @@ export class RequestListComponent implements OnInit {
   userId = null
   isSecurity: boolean
 
+  checkFontColor(status: string): string {
+    if (status === "Expected") {
+      return "orange"
+    }
+    if (status === "On-Site") {
+      return "green"
+    }
+    if(status === "Cancelled") {
+      return "red"
+    }
+
+    return "blue"
+  }
+
   getRequestDate(response) {
     var visitFromDate
     var visitToDate

@@ -108,7 +108,7 @@
       <div class="col-sm-1 offset-sm-10">
         <button type="button" class="btn btn-danger" routerLink="/user/{{ userId }}/request/{{ requestInfo.request.id }}">Cancel</button>
       </div>
-      <div class="col-sm-1" *ngIf="requestInfo.request.status == 'New'">
+      <div class="col-sm-1" *ngIf="requestInfo.request.status == 'Expected'">
         <button type="submit" class="btn btn-primary mb-2">Save</button>
       </div>
     </div>
