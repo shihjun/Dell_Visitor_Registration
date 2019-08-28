@@ -8,9 +8,6 @@ public class RequestDetailsJson {
   Request request;
   User primaryContact;
   User alternativeContact;
-  Registration registration;
-  User checkinBy;
-  User escortBy;
 
   public Request getRequest() {
     return this.request;
@@ -34,30 +31,6 @@ public class RequestDetailsJson {
 
   public void setAlternativeContact(User alternativeContact) {
     this.alternativeContact = alternativeContact;
-  }
-
-  public Registration getRegistration() {
-    return this.registration;
-  }
-
-  public void setRegistration(Registration registration) {
-    this.registration = registration;
-  }
-
-  public User getCheckinBy() {
-    return this.checkinBy;
-  }
-
-  public void setCheckinBy(User checkinBy) {
-    this.checkinBy = checkinBy;
-  }
-
-  public User getEscortBy() {
-    return this.escortBy;
-  }
-
-  public void setEscortBy(User escortBy) {
-    this.escortBy = escortBy;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.example.visitorregistration.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.visitorregistration.entities.Registration;
@@ -41,20 +42,32 @@ public class RegistrationController {
     return registrationRepository.findAll(Sort.by(Sort.Order.desc("checkinAt"), Sort.Order.desc("id")));
   }
 
-  @GetMapping(value = "request/{requestId}/registration", produces = "application/json")
+  @GetMapping(value = "request/{requestId}/registrations", produces = "application/json")
   public RegistrationDetailsJson displayRegistrationDetails(@PathVariable long requestId) {
 
     RegistrationDetailsJson json = new RegistrationDetailsJson();
     Request request = requestRepository.findById(requestId).orElse(new Request());
 
-    Registration registration = registrationRepository.findByRequest(request);
-    if (registration != null) {
-      User checkinBy = registration.getCheckinBy();
-      User escortBy = registration.getEscortBy();
-      json.setCheckinBy(checkinBy);
-      json.setEscortBy(escortBy);
+    ArrayList<Registration> registrations = registrationRepository.findByRequest(request,
+        Sort.by(Sort.Order.asc("checkinAt")));
+
+    ArrayList<Registration> registrationList = new ArrayList<>();
+    ArrayList<User> checkinByList = new ArrayList<>();
+    ArrayList<User> escortByList = new ArrayList<>();
+
+    if (registrations != null) {
+      for (int i = 0; i < registrations.size(); i++) {
+        User checkinBy = registrations.get(i).getCheckinBy();
+        User escortBy = registrations.get(i).getEscortBy();
+        registrationList.add(registrations.get(i));
+        checkinByList.add(checkinBy);
+        escortByList.add(escortBy);
+
+      }
+      json.setRegistrations(registrationList);
+      json.setCheckinBy(checkinByList);
+      json.setEscortBy(escortByList);
     }
-    json.setRegistration(registration);
     json.setRequest(request);
     return json;
   }

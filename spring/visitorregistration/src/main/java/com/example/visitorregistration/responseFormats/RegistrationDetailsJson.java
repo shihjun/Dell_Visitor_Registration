@@ -1,22 +1,16 @@
 package com.example.visitorregistration.responseFormats;
 
+import java.util.ArrayList;
+
 import com.example.visitorregistration.entities.Registration;
 import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 
 public class RegistrationDetailsJson {
   Request request;
-  Registration registration;
-  User checkinBy;
-  User escortBy;
-
-  public Registration getRegistration() {
-    return this.registration;
-  }
-
-  public void setRegistration(Registration registration) {
-    this.registration = registration;
-  }
+  ArrayList<Registration> registrations = new ArrayList<>();
+  ArrayList<User> checkinBy = new ArrayList<>();
+  ArrayList<User> escortBy = new ArrayList<>();
 
   public Request getRequest() {
     return this.request;
@@ -26,19 +20,27 @@ public class RegistrationDetailsJson {
     this.request = request;
   }
 
-  public User getCheckinBy() {
+  public ArrayList<Registration> getRegistrations() {
+    return this.registrations;
+  }
+
+  public void setRegistrations(ArrayList<Registration> registrations) {
+    this.registrations = registrations;
+  }
+
+  public ArrayList<User> getCheckinBy() {
     return this.checkinBy;
   }
 
-  public void setCheckinBy(User checkinBy) {
+  public void setCheckinBy(ArrayList<User> checkinBy) {
     this.checkinBy = checkinBy;
   }
 
-  public User getEscortBy() {
+  public ArrayList<User> getEscortBy() {
     return this.escortBy;
   }
 
-  public void setEscortBy(User escortBy) {
+  public void setEscortBy(ArrayList<User> escortBy) {
     this.escortBy = escortBy;
   }
 
