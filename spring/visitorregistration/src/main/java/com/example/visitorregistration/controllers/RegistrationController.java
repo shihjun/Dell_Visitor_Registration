@@ -89,7 +89,7 @@ public class RegistrationController {
       registration.setEscortBy(escortBy);
       registrationRepository.save(registration);
       request.setId(requestId);
-      request.setStatus("Visiting");
+      request.setStatus("On-Site");
       requestRepository.save(request);
     }
   }
