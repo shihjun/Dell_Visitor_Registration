@@ -10,6 +10,11 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) { }
 
+  getAllNullCheckoutRegistration() {
+    const getRegistrationUrl = `${baseUrl}/registrations/nullcheckout`
+    return this.http.get(getRegistrationUrl)
+  }
+
   getRegistration(requestId) {
     const getRegistrationUrl = `${baseUrl}/request/${requestId}/registrations`
     return this.http.get(getRegistrationUrl)
