@@ -40,9 +40,9 @@ export class SubmitRequestComponent implements OnInit {
     alternativePhone: new FormControl("")
   });
 
-  constructor(private requestService: RequestService, private userService: UserService, private router: Router, 
-              private route: ActivatedRoute, public dialog: MatDialog) { }
-  
+  constructor(private requestService: RequestService, private userService: UserService, private router: Router,
+    private route: ActivatedRoute, public dialog: MatDialog) { }
+
   ngOnInit() {
     this.userService.getUsers().subscribe(response => {
       this.users = response
@@ -55,8 +55,8 @@ export class SubmitRequestComponent implements OnInit {
     var names = []
     this.userService.getUsers().subscribe(response => {
       this.users = response
-      for(let i = 0; i < this.users.length; i++) {
-        if(this.users[i].isSecurity == false) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].isSecurity == false) {
           names.push(this.users[i].name)
         }
       }
@@ -73,21 +73,18 @@ export class SubmitRequestComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase()
-    
+
     return this.allNames.filter(name => name.toLowerCase().includes(filterValue))
   }
 
   getContactId(userArray) {
-    for(let i = 0; i < userArray.length; i++) {
-      if(userArray[i].name == this.requestForm.controls.primaryCN.value) {
+    for (let i = 0; i < userArray.length; i++) {
+      if (userArray[i].name == this.requestForm.controls.primaryCN.value) {
         this.pContactId = userArray[i].id
         console.log("Primary Contact Id : " + this.pContactId)
       }
-      if(userArray[i].name == this.requestForm.controls.alternativeCN.value) {
+      if (userArray[i].name == this.requestForm.controls.alternativeCN.value) {
         this.aContactId = userArray[i].id
-        console.log("Alternative Contact : " + this.aContactId)
-      } else {
-        this.aContactId = ""
         console.log("Alternative Contact : " + this.aContactId)
       }
     }
@@ -124,10 +121,10 @@ export class SubmitRequestComponent implements OnInit {
       updatedAt: currentDate
     }
 
-    if(!this.requestForm.invalid) {
+    if (!this.requestForm.invalid) {
       console.log(data)
       this.getContactId(this.users)
-    
+
       this.requestService.createRequest(data, this.pContactId, this.aContactId, this.userId).subscribe(response => {
         this.isSubmitted = true
         this.openDialog()
@@ -143,4 +140,4 @@ export class SubmitRequestComponent implements OnInit {
   selector: 'submit-request-success-alert',
   templateUrl: './submit-request-success-alert.html'
 })
-export class SubmitRequestSuccessAlert {}
+export class SubmitRequestSuccessAlert { }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 const baseUrl = "https://dellvisitorregistration.cfapps.io/api";
 
@@ -8,10 +9,21 @@ const baseUrl = "https://dellvisitorregistration.cfapps.io/api";
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  private users: BehaviorSubject<any> = new BehaviorSubject([])
 
-  getUsers() {
+  constructor(private http: HttpClient) {
+    this.getUsersData().subscribe(response => {
+      this.users.next(response)
+    })
+
+  }
+
+  getUsersData() {
     const getUserUrl = `${baseUrl}/users`
     return this.http.get(getUserUrl)
+  }
+
+  getUsers() {
+    return this.users
   }
 }
