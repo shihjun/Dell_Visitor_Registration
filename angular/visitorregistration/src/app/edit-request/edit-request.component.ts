@@ -50,16 +50,16 @@ export class EditRequestComponent implements OnInit {
     alternativePhone: new FormControl("")
   });
 
-  constructor(private requestService: RequestService, private userService: UserService, private route: ActivatedRoute, 
-              private router: Router, public dialog: MatDialog) { }
+  constructor(private requestService: RequestService, private userService: UserService, private route: ActivatedRoute,
+    private router: Router, public dialog: MatDialog) { }
 
   getContactId(userArray) {
-    for(let i = 0; i < userArray.length; i++) {
-      if(userArray[i].name == this.requestForm.controls.primaryCN.value) {
+    for (let i = 0; i < userArray.length; i++) {
+      if (userArray[i].name == this.requestForm.controls.primaryCN.value) {
         this.pContactId = userArray[i].id
         console.log("Primary Contact Id : " + this.pContactId)
       }
-      if(this.requestForm.controls.alternativeCN.value != null && userArray[i].name == this.requestForm.controls.alternativeCN.value) {
+      if (this.requestForm.controls.alternativeCN.value != null && userArray[i].name == this.requestForm.controls.alternativeCN.value) {
         this.aContactId = userArray[i].id
         console.log("Alternative Contact : " + this.aContactId)
       }
@@ -70,8 +70,8 @@ export class EditRequestComponent implements OnInit {
     var names = []
     this.userService.getUsers().subscribe(response => {
       this.users = response
-      for(let i = 0; i < this.users.length; i++) {
-        if(this.users[i].isSecurity == false) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].isSecurity == false) {
           names.push(this.users[i].name)
         }
       }
@@ -109,7 +109,7 @@ export class EditRequestComponent implements OnInit {
       this.requestForm.controls.primaryCN.setValue(this.requestInfo.primaryContact.name)
       this.requestForm.controls.primaryPhone.setValue(this.requestInfo.request.primaryContactPhone)
 
-      if(this.requestInfo.alternativeContact != null) {
+      if (this.requestInfo.alternativeContact != null) {
         this.alternativeContactName = this.requestInfo.alternativeContact.name
         this.alternativeContactPhone = this.requestInfo.request.alternativeContactPhone
         this.requestForm.controls.alternativeCN.setValue(this.alternativeContactName)
@@ -123,7 +123,7 @@ export class EditRequestComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase()
-    
+
     return this.allNames.filter(name => name.toLowerCase().includes(filterValue))
   }
 
@@ -140,7 +140,7 @@ export class EditRequestComponent implements OnInit {
   onSubmit() {
     const { visitOnDate, visitOnTime, visitToDate, visitToTime } = this.requestForm.value
     var currentDate = new Date();
-    
+
     var visitFrom = visitOnDate.toString()
     var visitTo = visitToDate.toString()
 
@@ -163,17 +163,17 @@ export class EditRequestComponent implements OnInit {
       createdAt: this.createdDate,
       updatedAt: currentDate
     }
-    
+
     // if(!this.requestForm.invalid) {
-      this.requestService.getUser().subscribe(response => {
-        this.allUsers = response
-        console.log(this.allUsers)
-        this.getContactId(this.allUsers)
-        this.requestService.updateRequest(this.route.snapshot.params.requestId, updatedData, this.pContactId, this.aContactId).subscribe(response => {
-          this.openDialog()
-          this.router.navigate(["/user/" + this.userId + "/request/" + this.requestId])
-        })
+    this.userService.getUsers().subscribe(response => {
+      this.allUsers = response
+      console.log(this.allUsers)
+      this.getContactId(this.allUsers)
+      this.requestService.updateRequest(this.route.snapshot.params.requestId, updatedData, this.pContactId, this.aContactId).subscribe(response => {
+        this.openDialog()
+        this.router.navigate(["/user/" + this.userId + "/request/" + this.requestId])
       })
+    })
     // }
   }
 }
@@ -182,4 +182,4 @@ export class EditRequestComponent implements OnInit {
   selector: 'save-request-success-alert',
   templateUrl: './save-request-success-alert.html'
 })
-export class SaveRequestSuccessAlert {}
+export class SaveRequestSuccessAlert { }

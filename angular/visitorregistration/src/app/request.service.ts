@@ -12,11 +12,6 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
-  getUser() {
-    const getUserUrl = `${baseUrl}/users`
-    return this.http.get(getUserUrl)
-  }
-
   getUserRequests(userId) {
     const getUserRequestsUrl = `${baseUrl}/user/${userId}/requests`
     return this.http.get(getUserRequestsUrl)
@@ -35,7 +30,7 @@ export class RequestService {
   createRequest(requestData, primaryContactId, alternativeContactId, userId) {
     console.log(requestData)
     var url
-    if(alternativeContactId != null) {
+    if (alternativeContactId != null) {
       url = `${baseUrl}/user/${userId}/requests?primaryContactId=${primaryContactId}&alternativeContactId=${alternativeContactId}`
     } else {
       url = `${baseUrl}/user/${userId}/requests?primaryContactId=${primaryContactId}`
@@ -50,7 +45,7 @@ export class RequestService {
 
   updateRequest(requestId, data, primaryContactId, alternativeContactId) {
     var url
-    if(alternativeContactId != null) {
+    if (alternativeContactId != null) {
       url = `${baseUrl}/request/${requestId}?primaryContactId=${primaryContactId}&alternativeContactId=${alternativeContactId}`
     } else {
       url = `${baseUrl}/request/${requestId}?primaryContactId=${primaryContactId}`
