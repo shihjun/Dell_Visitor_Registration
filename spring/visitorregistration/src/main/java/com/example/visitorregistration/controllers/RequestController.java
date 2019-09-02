@@ -2,7 +2,6 @@ package com.example.visitorregistration.controllers;
 
 import java.util.List;
 
-import com.example.visitorregistration.entities.Registration;
 import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 import com.example.visitorregistration.repositories.RegistrationRepository;

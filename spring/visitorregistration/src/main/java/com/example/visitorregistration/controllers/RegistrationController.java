@@ -9,6 +9,7 @@ import com.example.visitorregistration.entities.User;
 import com.example.visitorregistration.repositories.RegistrationRepository;
 import com.example.visitorregistration.repositories.RequestRepository;
 import com.example.visitorregistration.repositories.UserRepository;
+import com.example.visitorregistration.responseFormats.NullCheckoutRegistrationsJson;
 import com.example.visitorregistration.responseFormats.RegistrationDetailsJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,30 @@ public class RegistrationController {
   @GetMapping(value = "/registrations", produces = "application/json")
   public List<Registration> displayAllRegistrations() {
     return registrationRepository.findAll(Sort.by(Sort.Order.desc("checkinAt"), Sort.Order.desc("id")));
+  }
+
+  @GetMapping(value = "/registrations/nullcheckout", produces = "application/json")
+  public NullCheckoutRegistrationsJson displayNullCheckoutRegistrations() {
+    NullCheckoutRegistrationsJson json = new NullCheckoutRegistrationsJson();
+
+    List<Registration> registrations = registrationRepository
+        .findAll(Sort.by(Sort.Order.desc("checkinAt"), Sort.Order.desc("id")));
+
+    ArrayList<Registration> registrationList = new ArrayList<>();
+    ArrayList<Request> requestList = new ArrayList<>();
+
+    if (registrations != null) {
+      for (int i = 0; i < registrations.size(); i++) {
+        if (registrations.get(i).getCheckoutAt() == null) {
+          Request requestDetails = registrations.get(i).getRequest();
+          registrationList.add(registrations.get(i));
+          requestList.add(requestDetails);
+        }
+      }
+      json.setRegistrations(registrationList);
+      json.setRequest(requestList);
+    }
+    return json;
   }
 
   @GetMapping(value = "request/{requestId}/registrations", produces = "application/json")

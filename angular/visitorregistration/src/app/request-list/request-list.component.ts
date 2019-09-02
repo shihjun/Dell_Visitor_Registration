@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../request.service';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'app-request-list',
@@ -10,31 +11,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class RequestListComponent implements OnInit {
-  constructor(private requestService: RequestService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private requestService: RequestService, private userService: UserService, private route: ActivatedRoute, private registrationService: RegistrationService) { }
   requests: any
   allUsers: any
   allRequests: any
   userId = null
   isSecurity: boolean
+  registrationWithoutCheckout: any
 
-  checkFontColor(status: string): string {
-    if (status === "Expected") {
-      return "orange"
+  checkFontColor(status: string): string {
+    if (status === "Expected") {
+      return "orange"
     }
-    if (status === "On-Site") {
-      return "green"
+    if (status === "On-Site") {
+      return "green"
     }
-    if(status === "Cancelled") {
-      return "red"
+    if (status === "Cancelled") {
+      return "red"
     }
 
-    return "blue"
+    return "blue"
   }
 
   getRequestDate(response) {
     var visitFromDate
     var visitToDate
-    for(let i = 0; i < response.length; i++) {
+    for (let i = 0; i < response.length; i++) {
       visitFromDate = new Date(response[i].visitFrom)
       visitToDate = new Date(response[i].visitTo)
       response[i].visitFrom = visitFromDate.toString().substring(0, 21)
@@ -43,12 +45,19 @@ export class RequestListComponent implements OnInit {
   }
 
   getUserRole(array) {
-    for(let i = 0; i < array.length; i++) {
-      if(array[i].id == this.route.snapshot.params.userId) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].id == this.route.snapshot.params.userId) {
         this.isSecurity = array[i].isSecurity
         console.log(this.isSecurity)
       }
     }
+  }
+
+  getAllNullCheckoutRegistration() {
+    this.registrationService.getAllNullCheckoutRegistration().subscribe(response => {
+      this.registrationWithoutCheckout = response
+      console.log(this.registrationWithoutCheckout)
+    })
   }
 
   ngOnInit() {
@@ -70,6 +79,8 @@ export class RequestListComponent implements OnInit {
       console.log(this.allRequests)
       this.getRequestDate(this.allRequests)
     })
+
+    this.getAllNullCheckoutRegistration()
   }
 
 }

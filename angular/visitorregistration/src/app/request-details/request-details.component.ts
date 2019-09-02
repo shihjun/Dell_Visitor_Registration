@@ -46,7 +46,7 @@ export class RequestDetailsComponent implements OnInit {
       var oneDay = 24 * 60 * 60 * 1000;
       var NumOfDays = Math.round(Math.abs((new Date(this.visitToDate.substring(0, 15)).getTime() - new Date(this.visitFromDate.substring(0, 15)).getTime()) / oneDay) + 1);
       console.log("NumOfDays: " + NumOfDays)
-      this.totalVisitDay = NumOfDays​   
+      this.totalVisitDay = NumOfDays
 
       for (let i = 0; i < NumOfDays; i++) {
         var registrationDate = new Date(new Date(this.requestInfo.request.visitFrom).getTime() + (oneDay * i)).toString().substring(0, 15);
@@ -64,15 +64,16 @@ export class RequestDetailsComponent implements OnInit {
       this.getUserRole(this.allUsers);
     })
   }
-  
+
   getUserRole(array) {
-    for(let i = 0; i < array.length; i++) {
-      if(array[i].id == this.route.snapshot.params.userId) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].id == this.route.snapshot.params.userId) {
         this.isSecurity = array[i].isSecurity
         console.log(this.isSecurity)
       }
     }
   }
+
 
   ngOnInit() {
     this.requestService.getUserRequests(this.route.snapshot.params.userId).subscribe(response => {
@@ -89,22 +90,22 @@ export class RequestDetailsComponent implements OnInit {
   selector: 'cancel-request-success-alert',
   templateUrl: './cancel-request-success-alert.html'
 })
-export class CancelRequestSuccessAlert {}
+export class CancelRequestSuccessAlert { }
 
 @Component({
   selector: 'cancel-request-confirmation',
   templateUrl: './cancel-request-confirmation.html'
 })
 export class CancelRequestConfirmation {
-​
+
   constructor(private requestService: RequestService, private router: Router, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-​
+
   cancelUserRequest() {
     var currentDate = new Date()
     const data = {
       updatedAt: currentDate
     }
-​
+
     this.requestService.cancelRequest(this.data.requestId, data).subscribe(response => {
       this.openDialog()
       this.router.navigate(["/user/" + this.data.userId + "/requests"])

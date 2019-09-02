@@ -1,6 +1,5 @@
 package com.example.visitorregistration.responseFormats;
 
-import com.example.visitorregistration.entities.Registration;
 import com.example.visitorregistration.entities.Request;
 import com.example.visitorregistration.entities.User;
 
