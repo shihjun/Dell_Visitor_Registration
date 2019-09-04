@@ -3,6 +3,7 @@ import { RequestService } from '../request.service';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '../registration.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-request-list',
@@ -18,6 +19,13 @@ export class RequestListComponent implements OnInit {
   userId = null
   isSecurity: boolean
   registrationWithoutCheckout: any
+
+  paginationLength = 0
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
 
   checkFontColor(status: string): string {
     if (status === "Expected") {
@@ -57,10 +65,13 @@ export class RequestListComponent implements OnInit {
     this.registrationService.getAllNullCheckoutRegistration().subscribe(response => {
       this.registrationWithoutCheckout = response
       console.log(this.registrationWithoutCheckout)
+      this.getRequestDate(this.registrationWithoutCheckout.request)
     })
   }
 
   ngOnInit() {
+    pageEvent: PageEvent;
+
     this.requestService.getUserRequests(this.route.snapshot.params.userId).subscribe(response => {
       this.requests = response
       this.userId = this.route.snapshot.params.userId
@@ -76,7 +87,7 @@ export class RequestListComponent implements OnInit {
 
     this.requestService.getAllRequests().subscribe((requests) => {
       this.allRequests = requests
-      console.log(this.allRequests)
+      this.paginationLength = this.allRequests.length
       this.getRequestDate(this.allRequests)
     })
 

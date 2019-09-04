@@ -8,7 +8,7 @@ import { SubmitRequestSuccessAlert } from './submit-request/submit-request.compo
 import { RequestListComponent } from './request-list/request-list.component';
 import { RequestDetailsComponent, CancelRequestSuccessAlert, CancelRequestConfirmation } from './request-details/request-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatPaginatorModule } from '@angular/material';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -46,7 +46,8 @@ import { RegistrationComponent, CheckinRegistrationSuccessAlert, CheckoutRegistr
     MatAutocompleteModule,
     HttpClientModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
   providers: [
   ],
