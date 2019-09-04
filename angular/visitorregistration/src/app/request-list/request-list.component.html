@@ -20,31 +20,70 @@
   </header>
 </div>
 <div class="container">
-  <table class="table table-hover viewRequest-table">
-    <thead style="background-color: #3287c1; color: white; letter-spacing: 1.5px;">
-      <th scope="col">Request ID</th>
-      <th scope="col">Visitor Name</th>
-      <th scope="col">Status</th>
-      <th scope="col">Visit From</th>
-      <th scope="col">Visit To</th>
-    </thead>
-    <tbody *ngIf="isSecurity == false">
-      <tr *ngFor="let request of requests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
-        <th scope="row">{{ request.id }}</th>
-        <td>{{ request.name }}</td>
-        <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
-        <td>{{ request.visitFrom }}</td>
-        <td>{{ request.visitTo }}</td>
-      </tr>
-    </tbody>
-    <tbody *ngIf="isSecurity == true">
-      <tr *ngFor="let request of allRequests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
-        <th scope="row">{{ request.id }}</th>
-        <td>{{ request.name }}</td>
-        <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
-        <td>{{ request.visitFrom }}</td>
-        <td>{{ request.visitTo }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <ul *ngIf="isSecurity == true" class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="showAll-tab" data-toggle="tab" href="#showAll" role="tab" aria-controls="showAll" aria-selected="true">Show All</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="onsiteToday-tab" data-toggle="tab" href="#onsiteToday" role="tab" aria-controls="onsiteToday" aria-selected="false">On-Site Today</a>
+    </li>
+  </ul>
+  
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="showAll" role="tabpanel" aria-labelledby="showAll-tab">
+      <table class="table table-hover viewRequest-table">
+        <thead style="background-color: #3287c1; color: white; letter-spacing: 1.5px;">
+          <th scope="col">Request ID</th>
+          <th scope="col">Visitor Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Visit From</th>
+          <th scope="col">Visit To</th>
+        </thead>
+        <tbody *ngIf="isSecurity == false">
+          <tr *ngFor="let request of requests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
+            <th scope="row">{{ request.id }}</th>
+            <td>{{ request.name }}</td>
+            <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
+            <td>{{ request.visitFrom }}</td>
+            <td>{{ request.visitTo }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="isSecurity == true">
+          <tr *ngFor="let request of allRequests" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
+            <th scope="row">{{ request.id }}</th>
+            <td>{{ request.name }}</td>
+            <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
+            <td>{{ request.visitFrom }}</td>
+            <td>{{ request.visitTo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="tab-pane fade" id="onsiteToday" role="tabpanel" aria-labelledby="onsiteToday-tab">
+      <table class="table table-hover viewRequest-table">
+        <thead style="background-color: #3287c1; color: white; letter-spacing: 1.5px;">
+          <th scope="col">Request ID</th>
+          <th scope="col">Visitor Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Visit From</th>
+          <th scope="col">Visit To</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of registrationWithoutCheckout.request" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
+            <th scope="row">{{ request.id }}</th>
+            <td>{{ request.name }}</td>
+            <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
+            <td>{{ request.visitFrom }}</td>
+            <td>{{ request.visitTo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <mat-paginator [length]="paginationLength"
+                    [pageSizeOptions]="pageSizeOptions"
+                    
+    ></mat-paginator> -->
+  </div>
+  
 </div>

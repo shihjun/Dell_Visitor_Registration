@@ -50,7 +50,7 @@
           <label class="details-font">Status :</label>
         </div>
         <div class="col-sm-6">
-          <label class="details-font">{{ requestInfo.request.status }}</label>
+          <label class="details-font"><div class="status" [style.background-color]="checkFontColor(requestInfo.request.status)">{{ requestInfo.request.status }}</div></label>
         </div>
       </div>
       <div class="subsection-line"></div>
@@ -85,17 +85,11 @@
         <div class="col-sm-6">
           <label class="details-font">Visit From :</label>
           <div class="small-line"></div>
+          <label class="details-font">{{ visitFromDate }}</label>
         </div>
         <div class="col-sm-6">
           <label class="details-font">Visit To :</label>
           <div class="small-line"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <label class="details-font">{{ visitFromDate }}</label>
-        </div>
-        <div class="col-sm-6">
           <label class="details-font">{{ visitToDate }}</label>
         </div>
       </div>
@@ -106,7 +100,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <p>{{ requestInfo.request.purpose }}</p>
+          <label class="details-font">{{ requestInfo.request.purpose }}</label>
         </div>
       </div>
     </div>
@@ -114,102 +108,66 @@
       <div class="contact-box">
         <h5>Primary Contact</h5>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Name :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.primaryContact.name }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Name :</label><label>{{ requestInfo.primaryContact.name }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Badge :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.primaryContact.badgeId }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Badge :</label><label>{{ requestInfo.primaryContact.badgeId }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Email :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.primaryContact.email }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Email :</label><label>{{ requestInfo.primaryContact.email }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Department :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.primaryContact.department }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Department :</label><label>{{ requestInfo.primaryContact.department }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Extension :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.primaryContact.extension }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Extension :</label><label>{{ requestInfo.primaryContact.extension }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Phone :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.request.primaryContactPhone }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Phone :</label><label>{{ requestInfo.request.primaryContactPhone }}</label>
           </div>
         </div>
       </div>
       <div class="contact-box" *ngIf="requestInfo.alternativeContact != null">
         <h5>Alternative Contact</h5>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Name :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.alternativeContact.name }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Name :</label><label>{{ requestInfo.alternativeContact.name }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Badge :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.alternativeContact.badgeId }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Badge :</label><label>{{ requestInfo.alternativeContact.badgeId }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Email :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.alternativeContact.email }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Email :</label><label>{{ requestInfo.alternativeContact.email }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Department :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.alternativeContact.department }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Department :</label><label>{{ requestInfo.alternativeContact.department }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Extension :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.alternativeContact.extension }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Extension :</label><label>{{ requestInfo.alternativeContact.extension }}</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
-            <label>Phone :</label>
-          </div>
-          <div class="col-sm-8">
-            <label>{{ requestInfo.request.alternativeContactPhone }}</label>
+          <div class="col-sm-12">
+            <label class="contact-box-label">Phone :</label><label>{{ requestInfo.request.alternativeContactPhone }}</label>
           </div>
         </div>
       </div>

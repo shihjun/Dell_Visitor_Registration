@@ -28,6 +28,20 @@ export class RequestDetailsComponent implements OnInit {
   totalVisitDay = null
   isSecurity = null
 
+  checkFontColor(status: string): string {
+    if (status === "Expected") {
+      return "orange"
+    }
+    if (status === "On-Site") {
+      return "green"
+    }
+    if (status === "Cancelled") {
+      return "red"
+    }
+
+    return "blue"
+  }
+
   openConfirmationDialog() {
     this.dialog.open(CancelRequestConfirmation, {
       data: { userId: this.userId, requestId: this.requestInfo.request.id }
