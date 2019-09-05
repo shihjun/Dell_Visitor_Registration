@@ -36,7 +36,6 @@ export class LinechartComponent implements OnInit {
       dataset.sort((a, b) => sortedMonths.indexOf(a.checkinAt.substr(4, 3)) - sortedMonths.indexOf(b.checkinAt.substr(4, 3)));
       
       for(let registration of dataset) {
-        console.log(registration.checkinAt.substr(4, 3))
         if (!allRegistations[registration.checkinAt.substr(4, 3)]) {
           allRegistations[registration.checkinAt.substr(4, 3)] = 0
         }
@@ -45,9 +44,7 @@ export class LinechartComponent implements OnInit {
   
       this.chartLabels = Object.keys(allRegistations)
 
-      console.log(allRegistations)
       for(let month in allRegistations) {
-        console.log(Object.values(allRegistations))
         
         this.chartData.push({
           data: allRegistations[month],
@@ -55,7 +52,6 @@ export class LinechartComponent implements OnInit {
         })
         
       }
-      console.log(this.chartData)
     })
   }
 }

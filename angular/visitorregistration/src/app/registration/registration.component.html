@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isSecurity == true">
   <div class="row">
     <div class="col-sm-12">
       <h3>Registration Details</h3>
@@ -6,11 +6,11 @@
   </div>
   <div class="row" id="line"></div>
   <div class="d-flex flex-column" id="registration-box">
-      <div class="row">
-        <div class="col-sm-12">
-          <h5>Total Visit Days - {{ totalVisitDay }}</h5>
-        </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5>Total Visit Days - {{ totalVisitDay }}</h5>
       </div>
+    </div>
     <div *ngFor="let details of registrationDetails;let i = index" class="">
       <div *ngIf="currentDateNum >= visitFrom && i <= visitToCurrentDays" class="row d-flex sub-box">
         <div class="col-sm-2">
@@ -74,6 +74,69 @@
           <button *ngIf="details.checkInTime == null && currentDate == details.visitDate" (click)="checkIn()" type="button" class="btn btn-outline-primary">Check In</button>
           <button *ngIf="details.checkInTime != null && details.checkOutTime == null && currentDate == details.visitDate" (click)="checkOut()" type="button" class="btn btn-outline-primary">Check Out</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isSecurity == false">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Registration Details</h3>
+    </div>
+  </div>
+  <div class="row" id="line"></div>
+  <div class="d-flex flex-column" id="registration-box">
+    <div class="row">
+      <div class="col-sm-12">
+        <h5>Total Visit Days - {{ totalVisitDay }}</h5>
+      </div>
+    </div>
+    <div *ngFor="let details of registrationDetails;let i = index" class="">
+      <div *ngIf="currentDateNum >= visitFrom && i <= visitToCurrentDays" class="row d-flex sub-box">
+      <div class="col-sm-2">
+        <label><b>Visit Date</b></label>
+        <p>{{ details.visitDate }}</p>
+      </div>
+
+      <div *ngIf="details.checkInTime != null" class="col-sm-2">
+        <label><b>Belongings</b></label>
+        <p>{{ details.belongings }}</p>
+      </div>
+      <div *ngIf="details.checkInTime == null" class="col-sm-2">
+        <label><b>Belongings</b></label>
+        <p>-</p>
+      </div>
+
+      <div *ngIf="details.checkInTime != null" class="col-sm-3">
+        <label><b>Escort By</b></label>
+        <p>{{ details.escortBy }}</p>
+      </div>
+      <div *ngIf="details.checkInTime == null" class="col-sm-3">
+        <label><b>Escort By</b></label>
+        <p>-</p>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="row">
+          <div *ngIf="details.checkInTime == null" class="col-sm-6">
+            <label><b>Check-In</b></label>
+            <p>-</p>
+          </div>
+          <div *ngIf="details.checkInTime != null" class="col-sm-6">
+            <label><b>Check-In</b></label>
+            <p>{{ details.checkInTime }}</p>
+          </div>
+          <div *ngIf="details.checkOutTime == null" class="col-sm-6">
+            <label><b>Check-Out</b></label>
+            <p>-</p>
+          </div>
+          <div *ngIf="details.checkOutTime != null" class="col-sm-6">
+            <label><b>Check-Out</b></label>
+            <p>{{ details.checkOutTime }}</p>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>

@@ -27,21 +27,21 @@
     </div>
   </div>
   <div class="row" id="line"></div>
-  <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+  <form id="requestForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()" ngNativeValidate>
     <div class="form-group row">
-      <label for="name-input" class="col-sm-2 col-form-label">Visitor's Name :</label>
+      <label for="name-input" class="col-sm-2 col-form-label">Visitor's Name <span class="asterisk">&#42;</span>:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="name-input" formControlName="visitorName" placeholder="Name" value="{{ requestInfo.request.name }}">
+        <input type="text" class="form-control" id="name-input" formControlName="visitorName" placeholder="Name" value="{{ requestInfo.request.name }}" required>
       </div>
-      <label for="phone-input" class="col-sm-2 col-form-label">Phone :</label>
+      <label for="phone-input" class="col-sm-2 col-form-label">Phone <span class="asterisk">&#42;</span>:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="phone-input" formControlName="phoneNumber" placeholder="Phone Number" value="{{ requestInfo.request.phone }}">
+        <input type="text" class="form-control" id="phone-input" formControlName="phoneNumber" placeholder="Phone Number" value="{{ requestInfo.request.phone }}" required>
       </div>
     </div>
     <div class="form-group row">
-      <label for="ic-input" class="col-sm-2 col-form-label">IC/Passport No. :</label>
+      <label for="ic-input" class="col-sm-2 col-form-label">IC/Passport No. <span class="asterisk">&#42;</span>:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="ic-input" formControlName="icNumber" placeholder="IC Number" value="{{ requestInfo.request.ic }}">
+        <input type="text" class="form-control" id="ic-input" formControlName="icNumber" placeholder="IC Number" value="{{ requestInfo.request.ic }}" required>
       </div>
       <label for="carPlate-input" class="col-sm-2 col-form-label">Car Plate :</label>
       <div class="col-sm-4">
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit On :</label>
+      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit On <span class="asterisk">&#42;</span>:</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
           <input matInput [matDatepicker]="visitOnpicker" [min]="minDate" formControlName="visitOnDate" placeholder="Choose a date" [value]="fromDate" readonly>
@@ -58,9 +58,9 @@
         </mat-form-field>
       </div>
       <div class="col-sm-2">
-        <input type="time" class="form-control" formControlName="visitOnTime" name="usr_time" value="{{ fromTime }}">
+        <input type="time" class="form-control" formControlName="visitOnTime" name="usr_time" value="{{ fromTime }}" required>
       </div>
-      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit To :</label>
+      <label for="visitTo-input" class="col-sm-2 col-form-label">Visit To <span class="asterisk">&#42;</span>:</label>
       <div class="col-sm-2">
         <mat-form-field class="datepicker">
           <input matInput [matDatepicker]="visitTopicker" [min]="minDate" formControlName="visitToDate" placeholder="Choose a date" [value]="toDate" readonly>
@@ -69,13 +69,15 @@
         </mat-form-field>
       </div>
       <div class="col-sm-2">
-        <input type="time" class="form-control" formControlName="visitToTime" name="usr_time" value="{{ toTime }}">
+        <input type="time" class="form-control" formControlName="visitToTime" name="usr_time" value="{{ toTime }}" required>
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
-        <label for="visitReason-input">Reason to visit :</label>
-        <textarea class="form-control" id="visitReason-input" formControlName="visitReason" rows="3" value="{{ requestInfo.request.purpose }}"></textarea>
+        <div class="row">
+          <label  class="col-sm-3" for="visitReason-input">Reason to visit <span class="asterisk">&#42;</span>:</label>
+        </div>
+        <textarea class="form-control" id="visitReason-input" formControlName="visitReason" rows="3" value="{{ requestInfo.request.purpose }}" required></textarea>
       </div>
     </div>
     <h3 id="contact">Contact - Person to escort</h3>
@@ -83,13 +85,17 @@
       <div class="row onepercentpadding">
         <div class="col-sm-6">
           <h5>Primary Contact</h5>
-          <label class="setMargin">&nbsp;Name :</label>
+          <div class="row">
+            <label class="setMargin col-sm-3">&nbsp;Name <span class="asterisk">&#42;</span>:</label>
+          </div>
           <input type="text" class="form-control" id="primaryContact-input" [matAutocomplete]="auto" formControlName="primaryCN" placeholder="Full name">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let name of (filteredPrimaryUsers | async)" [value]="name">{{ name }}</mat-option>
           </mat-autocomplete>
-          <label class="setMargin">&nbsp;Phone Number :</label>
-          <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number" value="{{ requestInfo.request.primaryContactPhone }}">
+          <div class="row">
+            <label class="setMargin col-sm-5">&nbsp;Phone Number <span class="asterisk">&#42;</span>:</label>
+          </div>
+          <input type="text" class="form-control" formControlName="primaryPhone" placeholder="Phone Number" value="{{ requestInfo.request.primaryContactPhone }}" required>
         </div>
         <div class="col-sm-6">
           <h5>Alternative Contact</h5>

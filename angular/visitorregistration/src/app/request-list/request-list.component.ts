@@ -19,6 +19,7 @@ export class RequestListComponent implements OnInit {
   userId = null
   isSecurity: boolean
   registrationWithoutCheckout: any
+  checkInTime = null
 
   paginationLength = 0
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -52,6 +53,15 @@ export class RequestListComponent implements OnInit {
     }
   }
 
+  getExpectedCheckoutTime(response) {
+    var expectedCheckOut
+
+    for(let i = 0; i < response.length; i++) {
+      expectedCheckOut = new Date(response[i].visitTo)
+      response[i].visitTo = expectedCheckOut.toString().substring(16, 21)
+    }
+  }
+
   getUserRole(array) {
     for (let i = 0; i < array.length; i++) {
       if (array[i].id == this.route.snapshot.params.userId) {
@@ -66,12 +76,17 @@ export class RequestListComponent implements OnInit {
       this.registrationWithoutCheckout = response
       console.log(this.registrationWithoutCheckout)
       this.getRequestDate(this.registrationWithoutCheckout.request)
+      for(let i = 0; i < this.registrationWithoutCheckout.registrations.length; i++) {
+        this.checkInTime = new Date(this.registrationWithoutCheckout.registrations[i].checkinAt).toString().substring(16, 21)
+      }
+      console.log(this.checkInTime)
+      this.getExpectedCheckoutTime(this.registrationWithoutCheckout.request)
     })
   }
 
   ngOnInit() {
     pageEvent: PageEvent;
-
+    
     this.requestService.getUserRequests(this.route.snapshot.params.userId).subscribe(response => {
       this.requests = response
       this.userId = this.route.snapshot.params.userId
@@ -92,6 +107,7 @@ export class RequestListComponent implements OnInit {
     })
 
     this.getAllNullCheckoutRegistration()
+
   }
 
 }
