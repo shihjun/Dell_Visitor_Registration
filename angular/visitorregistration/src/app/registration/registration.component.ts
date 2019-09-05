@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   @Input() totalVisitDay
   @Input() userId
   @Input() allUsers
+  @Input() isSecurity
   allNames: string[]
   filteredUsers: Observable<string[]>
   isCheckedIn: boolean = false

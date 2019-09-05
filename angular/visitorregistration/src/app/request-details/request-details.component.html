@@ -174,12 +174,13 @@
     </div>
   </div>
   <div class="row" id="line"></div>
-  <app-registration *ngIf="isSecurity == true" [requestInfo]="requestInfo" 
+  <app-registration [requestInfo]="requestInfo" 
                     [visitFromDate]="visitFromDate" 
                     [visitToDate]="visitToDate" 
                     [registrationDates]="registrationDates"
                     [totalVisitDay]="totalVisitDay"
                     [userId]="userId"
-                    [allUsers]="allUsers">
+                    [allUsers]="allUsers"
+                    [isSecurity]="isSecurity">
   </app-registration>
 </div>
