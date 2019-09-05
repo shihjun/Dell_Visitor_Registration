@@ -37,6 +37,11 @@
     margin-top: 3%;
 }
 
+.asterisk {
+    color: red;
+    margin-right: 2%;
+}
+
 #line {
     border-bottom: 1px solid #D7D7D7;
     margin-top: 2vh;

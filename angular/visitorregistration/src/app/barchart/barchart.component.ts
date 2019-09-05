@@ -33,41 +33,41 @@ export class BarchartComponent implements OnInit {
       dataset = response
       this.getRequestDate(dataset)
       dataset.sort((a, b) => sortedMonths.indexOf(a.createdAt.substr(4, 3)) - sortedMonths.indexOf(b.createdAt.substr(4, 3)));
-      console.log(dataset)
+
 
       for (let request of dataset) {
         if (!requests[request.createdAt.substr(4, 3)]) {
           requests[request.createdAt.substr(4, 3)] = {}
         }
-        console.log(request.status)
         
           if (!requests[request.createdAt.substr(4, 3)][request.status]) {
             requests[request.createdAt.substr(4, 3)][request.status] = 0
           }
           requests[request.createdAt.substr(4, 3)][request.status] += 1
       }
-      console.log(requests)
 
       this.chartLabels = Object.keys(requests)
 
       let aggregateStatus = {}
       
-      for(let month of Object.keys(requests)) {
-        console.log(month)
-        for(let status in requests[month]) {
-          console.log(requests[month][status])
-          if(!aggregateStatus[status]) {
+      for (let month of Object.keys(requests)) {
+        for (let status in requests[month]) {
+          if (!aggregateStatus[status]) {
             aggregateStatus[status] = []
-            console.log(aggregateStatus[status])
-          }
-          if(requests[month]) {
-            aggregateStatus[status].push(requests[month][status])
           }
         }
       }
-      console.log(aggregateStatus)
+      for (let month of Object.keys(requests)) {
+        for (let status in aggregateStatus) {
+          if (requests[month][status]) {
+            aggregateStatus[status].push(requests[month][status])
+          } else {
+            aggregateStatus[status].push(0)
+          }
+        }
+      }
+
       for(let status in aggregateStatus) {
-        console.log(status)
         this.chartData.push({
           data: aggregateStatus[status],
           label: status

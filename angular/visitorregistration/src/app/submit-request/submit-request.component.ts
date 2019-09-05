@@ -23,6 +23,7 @@ export class SubmitRequestComponent implements OnInit {
   minDate = new Date();
   filteredPrimaryUsers: Observable<string[]>
   filteredAlternativeUsers: Observable<string[]>
+  name: any = null
 
   requestForm = new FormGroup({
     visitorName: new FormControl("", [Validators.required]),
@@ -95,6 +96,8 @@ export class SubmitRequestComponent implements OnInit {
   }
 
   onSubmit() {
+    this.name = this.requestForm.controls.visitorName.value
+
     const { visitOnDate, visitOnTime, visitToDate, visitToTime } = this.requestForm.value
     var currentDate = new Date();
     var visitFrom = visitOnDate.toString()
