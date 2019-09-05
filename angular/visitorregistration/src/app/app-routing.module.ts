@@ -5,6 +5,7 @@ import { SubmitRequestComponent } from './submit-request/submit-request.componen
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { EditRequestComponent } from './edit-request/edit-request.component';
 import { UsersComponent } from './users/users.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'user/:userId/submitrequest', component: SubmitRequestComponent },

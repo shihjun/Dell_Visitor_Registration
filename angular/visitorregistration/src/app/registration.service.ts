@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 const baseUrl = "https://dellvisitorregistration.cfapps.io/api";
 
@@ -8,7 +9,23 @@ const baseUrl = "https://dellvisitorregistration.cfapps.io/api";
 })
 export class RegistrationService {
 
-  constructor(private http: HttpClient) { }
+  private registrations: BehaviorSubject<any> = new BehaviorSubject([])
+
+  constructor(private http: HttpClient) {
+    // this.getAllRegistrationsData().subscribe(response => {
+    //   this.registrations.next(response)
+    // })
+  }
+
+  // getAllRegistrationsData() {
+  //   const getRegistrationUrl = `${baseUrl}/registrations/`
+  //   return this.http.get(getRegistrationUrl)
+  // }
+
+  getAllRegistrations() {
+    const getRegistrationUrl = `${baseUrl}/registrations/`
+    return this.http.get(getRegistrationUrl)
+  }
 
   getAllNullCheckoutRegistration() {
     const getRegistrationUrl = `${baseUrl}/registrations/nullcheckout`

@@ -15,6 +15,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditRequestComponent, SaveRequestSuccessAlert } from './edit-request/edit-request.component';
 import { UsersComponent } from './users/users.component';
 import { RegistrationComponent, CheckinRegistrationSuccessAlert, CheckoutRegistrationSuccessAlert } from './registration/registration.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { LinechartComponent } from './linechart/linechart.component';
+import { BarchartComponent } from './barchart/barchart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { RegistrationComponent, CheckinRegistrationSuccessAlert, CheckoutRegistr
     RegistrationComponent,
     CancelRequestConfirmation,
     CheckinRegistrationSuccessAlert,
-    CheckoutRegistrationSuccessAlert
+    CheckoutRegistrationSuccessAlert,
+    DashboardComponent,
+    LinechartComponent,
+    BarchartComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,8 @@ import { RegistrationComponent, CheckinRegistrationSuccessAlert, CheckoutRegistr
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ChartsModule
   ],
   providers: [
   ],
