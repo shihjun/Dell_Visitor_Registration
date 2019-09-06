@@ -71,14 +71,16 @@
           <th scope="col">Status</th>
           <th scope="col">Check-In At</th>
           <th scope="col">Expected Check-Out</th>
+          <!-- <th scope="col">Duration</th> -->
         </thead>
         <tbody>
           <tr *ngFor="let request of registrationWithoutCheckout.request" routerLink="/user/{{ userId }}/request/{{ request.id }}" style="cursor: pointer;">
             <th scope="row">{{ request.id }}</th>
             <td>{{ request.name }}</td>
             <td><div class="status" [style.background-color]="checkFontColor(request.status)">{{ request.status }}</div></td>
-            <td>{{ checkInTime }}</td>
+            <td>{{ request.checkinAt }}</td>
             <td>{{ request.visitTo }}</td>
+            <!-- <td>{{ request.sec }}</td> -->
           </tr>
         </tbody>
       </table>

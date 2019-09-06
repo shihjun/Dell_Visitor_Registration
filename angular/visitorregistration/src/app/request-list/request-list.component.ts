@@ -19,7 +19,10 @@ export class RequestListComponent implements OnInit {
   userId = null
   isSecurity: boolean
   registrationWithoutCheckout: any
-  checkInTime = null
+  interval: any
+  hour: any
+  mins: any
+  sec: any
 
   paginationLength = 0
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -42,6 +45,30 @@ export class RequestListComponent implements OnInit {
     return "blue"
   }
 
+//   startTimer(checkInTime) {
+//     var oneHour = 60 * 60 * 1000;
+//     var oneMin = 60 * 1000;
+//     this.hour = Math.floor((new Date().getTime() - new Date(checkInTime).getTime()) / oneHour)
+//     this.mins = Math.floor((new Date().getTime() - new Date(checkInTime).getTime()) / oneMin - this.hour * 60)
+//     this.sec = new Date().getSeconds()
+// ​
+//     setInterval(() => {
+//       if (this.sec < 59) {
+//         this.sec++;
+//       } else {
+//         this.sec = 0;
+//         if (this.mins < 59) {
+//           this.mins += 1;
+//         }
+//         else {
+//           this.mins = 0
+//           this.hour += 1
+//         }
+//       }
+//     }, 1000)
+//     return this.sec
+//   }
+
   getRequestDate(response) {
     var visitFromDate
     var visitToDate
@@ -62,6 +89,25 @@ export class RequestListComponent implements OnInit {
     }
   }
 
+  getCheckInTime(registrationArray, requestArray) {
+    var checkInTime
+    var duration
+
+    for(let i = 0; i < registrationArray.length; i++) {
+      checkInTime = new Date(registrationArray[i].checkinAt).toString().substring(16, 21)
+      requestArray[i]["checkinAt"] = checkInTime
+      // var hour = this.startTimer(registrationArray[i].checkinAt).hour
+      // var mins = this.startTimer(registrationArray[i].checkinAt).mins
+      // if(this.startTimer(registrationArray[i].checkinAt).sec != null) {
+      //   var sec = this.startTimer(registrationArray[i].checkinAt).sec
+      //   console.log(sec)
+      //   requestArray[i]["sec"] = sec
+      // }
+    }
+
+    console.log(requestArray)
+  }
+
   getUserRole(array) {
     for (let i = 0; i < array.length; i++) {
       if (array[i].id == this.route.snapshot.params.userId) {
@@ -75,11 +121,7 @@ export class RequestListComponent implements OnInit {
     this.registrationService.getAllNullCheckoutRegistration().subscribe(response => {
       this.registrationWithoutCheckout = response
       console.log(this.registrationWithoutCheckout)
-      this.getRequestDate(this.registrationWithoutCheckout.request)
-      for(let i = 0; i < this.registrationWithoutCheckout.registrations.length; i++) {
-        this.checkInTime = new Date(this.registrationWithoutCheckout.registrations[i].checkinAt).toString().substring(16, 21)
-      }
-      console.log(this.checkInTime)
+      this.getCheckInTime(this.registrationWithoutCheckout.registrations, this.registrationWithoutCheckout.request)
       this.getExpectedCheckoutTime(this.registrationWithoutCheckout.request)
     })
   }
@@ -95,7 +137,7 @@ export class RequestListComponent implements OnInit {
     })
 
     this.userService.getUsers().subscribe(response => {
-      this.allUsers = response
+      this.allUsers = response                                                                                                                                                
       console.log(this.allUsers)
       this.getUserRole(this.allUsers)
     })
